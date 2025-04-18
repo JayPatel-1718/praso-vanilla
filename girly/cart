@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Playfair+Display:wght@700&display=swap" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: #f0f0f4;
+      color: #222;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      z-index: 1000;
+      transition: top 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      color: #c71585;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      padding: 8px 0;
+      transition: all 0.3s ease;
+      position: relative;
+      letter-spacing: 1.2px;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2.5px;
+      background-color: #ff69b4;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #111;
+    }
+
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .user-icon {
+      cursor: pointer;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .dropdown-content a, .dropdown-content button {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .dropdown-content a:hover, .dropdown-content button:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown-email {
+      padding: 12px 16px;
+      color: #666;
+      font-size: 14px;
+      border-bottom: 1px solid #eee;
+      word-break: break-all;
+    }
+
+    .cart-container, .coin-container {
+      position: relative;
+      display: inline-block;
+      margin-left: 15px;
+    }
+
+    .cart-icon, .coin-icon {
+      cursor: pointer;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .cart-count, .coin-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #ff4444;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    .coin-count {
+      background-color: #ff69b4;
+    }
+
+    /* Cart Section Styles */
+    .cart-section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-section h1 {
+      font-size: 32px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: #c71585;
+      margin-bottom: 30px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      font-size: 18px;
+      font-family: 'Quicksand', sans-serif;
+      color: #888;
+      padding: 40px 0;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 30px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .cart-table th,
+    .cart-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid #e8ecef;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .cart-table th {
+      background: linear-gradient(135deg, #ffccd5, #e6e6fa);
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .cart-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .cart-table tr:hover {
+      background: #f9fafb;
+      transition: background 0.3s ease;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      margin-right: 20px;
+      border-radius: 8px;
+      border: 1px solid #e8ecef;
+      transition: transform 0.3s ease;
+    }
+
+    .cart-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-details h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c2c2c;
+    }
+
+    .cart-item-details p {
+      margin: 8px 0 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      background: #f1f3f5;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .quantity-control button {
+      background: transparent;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 18px;
+      color: #555;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .quantity-control button:hover {
+      background: #e0e4e8;
+      color: #333;
+    }
+
+    .quantity-control span {
+      margin: 0 12px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #2c2c2c;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #ff4d4d;
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .remove-btn:hover {
+      color: #e63939;
+      transform: scale(1.1);
+    }
+
+    .cart-total {
+      text-align: right;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .cart-total p {
+      font-size: 20px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      color: #2c2c2c;
+      margin-bottom: 20px;
+    }
+
+    .checkout-btn {
+      background: linear-gradient(135deg, #ff69b4, #c71585);
+      color: #fff;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+    }
+
+    .checkout-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
+    }
+
+    /* Coupon Section */
+    .coupon-section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .coupon-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: #c71585;
+      margin-bottom: 15px;
+    }
+
+    .coupon-input {
+      display: flex;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    .coupon-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .coupon-input button {
+      background: #ff69b4;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease;
+    }
+
+    .coupon-input button:hover {
+      background: #c71585;
+    }
+
+    .coupon-message {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #28a745;
+    }
+
+    .coupon-message.error {
+      color: #ff4444;
+    }
+
+    /* Rewards Section */
+    .rewards-section {
+      margin: 20px 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #ffccd5, #e6e6fa);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .rewards-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: #c71585;
+      margin-bottom: 15px;
+    }
+
+    .rewards-section p {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .reward-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .reward-option button {
+      background: #ff69b4;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease;
+    }
+
+    .reward-option button:hover {
+      background: #c71585;
+    }
+
+    .reward-option button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Discount Suggestions */
+    .suggestions-section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .suggestions-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: #c71585;
+      margin-bottom: 15px;
+    }
+
+    .suggestion {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .nav-links li {
+        margin: 10px 0;
+      }
+      .hamburger {
+        display: block;
+      }
+      .cart-section h1 {
+        font-size: 24px;
+      }
+      .cart-table th,
+      .cart-table td {
+        padding: 12px;
+        font-size: 14px;
+      }
+      .cart-item img {
+        width: 60px;
+        height: 60px;
+      }
+      .cart-item-details h3 {
+        font-size: 16px;
+      }
+      .cart-item-details p {
+        font-size: 13px;
+      }
+      .quantity-control button {
+        padding: 6px 10px;
+        font-size: 16px;
+      }
+      .quantity-control span {
+        margin: 0 8px;
+        font-size: 14px;
+      }
+      .cart-total {
+        text-align: center;
+      }
+      .cart-total p {
+        font-size: 18px;
+      }
+      .checkout-btn {
+        padding: 12px 30px;
+        font-size: 14px;
+      }
+      .coupon-input {
+        flex-direction: column;
+        max-width: 100%;
+      }
+      .coupon-input input,
+      .coupon-input button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-logo">PRASO</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="#">Quiz</a></li>
+      <li><a href="#">Contact</a></li>
+      <div id="user-area" class="user-area"></div>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <!-- Cart Section -->
+  <section class="cart-section">
+    <h1>Your Cart</h1>
+    <div class="coupon-section">
+      <h3>Apply Coupon</h3>
+      <div class="coupon-input">
+        <input type="text" id="couponInput" placeholder="Enter coupon code" />
+        <button onclick="applyCoupon()">Apply</button>
+      </div>
+      <p id="couponMessage" class="coupon-message"></p>
+    </div>
+    <div class="rewards-section">
+      <h3>Your PRASO COINS</h3>
+      <p id="coinBalance">Balance: 0 PRASO COINS</p>
+      <h3>Redeem Rewards</h3>
+      <div id="rewardsList"></div>
+    </div>
+    <div class="suggestions-section">
+      <h3>Discount Suggestions</h3>
+      <div id="suggestionsList"></div>
+    </div>
+    <div id="cartContent"></div>
+    <div class="cart-total" id="cartTotal"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>PRASO</h3>
+        <p>Elevate your style with Praso Clothing.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>Email: support@prasoclothing.com</p>
+        <p>Phone: +1 (555) 123-4567</p>
+      </div>
+      <div>
+        <h3>Stay Updated</h3>
+        <form onsubmit="subscribeNewsletter(event)">
+          <input type="email" placeholder="Your email" required />
+          <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+        <div class="socials">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-twitter"></i>
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    // Cart and Rewards Functionality
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+    }
+
+    function getUserId() {
+      return window.currentUser ? window.currentUser.email : 'guest_' + (localStorage.getItem('guestId') || Math.random().toString(36).slice(2));
+    }
+
+    function getCoins() {
+      const userId = getUserId();
+      const coins = JSON.parse(localStorage.getItem('praso_coins') || '{}');
+      return coins[userId] || 0;
+    }
+
+    function saveCoins(coins) {
+      const userId = getUserId();
+      const coinData = JSON.parse(localStorage.getItem('praso_coins') || '{}');
+      coinData[userId] = coins;
+      localStorage.setItem('praso_coins', JSON.stringify(coinData));
+      updateCoinCount();
+      renderRewards();
+    }
+
+    function updateCartCount() {
+      const cart = getCart();
+      const count = cart.reduce((total, item) => total + item.quantity, 0);
+      const cartCountElements = document.querySelectorAll('#cartCount');
+      cartCountElements.forEach(el => el.textContent = count);
+    }
+
+    function updateCoinCount() {
+      const coins = getCoins();
+      const coinCountElements = document.querySelectorAll('#coinCount');
+      coinCountElements.forEach(el => el.textContent = coins);
+      document.getElementById('coinBalance').textContent = `Balance: ${coins} PRASO COINS`;
+    }
+
+    const coupons = [
+      { code: 'PRASO10', type: 'percent', value: 10, minCart: 1000 },
+      { code: 'PRASO50', type: 'fixed', value: 50, minCart: 2000 },
+      { code: 'PRASOFREE', type: 'percent', value: 15, minCart: 5000 }
+    ];
+
+    let appliedCoupon = null;
+
+    function applyCoupon() {
+      const code = document.getElementById('couponInput').value.trim().toUpperCase();
+      const messageEl = document.getElementById('couponMessage');
+      const cart = getCart();
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) * 80;
+
+      const coupon = coupons.find(c => c.code === code);
+      if (!coupon) {
+        messageEl.textContent = 'Invalid coupon code.';
+        messageEl.className = 'coupon-message error';
+        appliedCoupon = null;
+        renderCart();
+        return;
+      }
+
+      if (total < coupon.minCart) {
+        messageEl.textContent = `Minimum cart value of ₹${coupon.minCart.toLocaleString('en-IN')} required.`;
+        messageEl.className = 'coupon-message error';
+        appliedCoupon = null;
+        renderCart();
+        return;
+      }
+
+      appliedCoupon = coupon;
+      messageEl.textContent = `Coupon ${code} applied! ${coupon.type === 'percent' ? `${coupon.value}% off` : `₹${coupon.value} off`}.`;
+      messageEl.className = 'coupon-message';
+      renderCart();
+    }
+
+    const rewards = [
+      { id: 1, name: '5% Off Coupon', coins: 50, coupon: { code: 'REWARD5', type: 'percent', value: 5, minCart: 500 } },
+      { id: 2, name: '₹100 Off Coupon', coins: 100, coupon: { code: 'REWARD100', type: 'fixed', value: 100, minCart: 1000 } },
+      { id: 3, name: 'Free Shipping', coins: 200, coupon: { code: 'FREESHIP', type: 'percent', value: 10, minCart: 2000 } }
+    ];
+
+    function redeemReward(rewardId) {
+      const reward = rewards.find(r => r.id === rewardId);
+      const coins = getCoins();
+      if (coins < reward.coins) {
+        alert('Not enough PRASO COINS to redeem this reward.');
+        return;
+      }
+
+      saveCoins(coins - reward.coins);
+      document.getElementById('couponInput').value = reward.coupon.code;
+      applyCoupon();
+      alert(`Redeemed ${reward.name}! Coupon ${reward.coupon.code} applied.`);
+    }
+
+    function renderRewards() {
+      const coins = getCoins();
+      const rewardsList = document.getElementById('rewardsList');
+      rewardsList.innerHTML = rewards.map(reward => `
+        <div class="reward-option">
+          <span>${reward.name} (${reward.coins} COINS)</span>
+          <button ${coins >= reward.coins ? '' : 'disabled'} onclick="redeemReward(${reward.id})">Redeem</button>
+        </div>
+      `).join('');
+    }
+
+    function renderSuggestions(total) {
+      const suggestionsList = document.getElementById('suggestionsList');
+      const suggestions = [];
+
+      if (total < 1000) {
+        suggestions.push(`Spend ₹${(1000 - total).toLocaleString('en-IN')} more to unlock a 10% off coupon!`);
+      } else if (total < 2000) {
+        suggestions.push(`Spend ₹${(2000 - total).toLocaleString('en-IN')} more to unlock a ₹50 off coupon!`);
+      } else if (total < 5000) {
+        suggestions.push(`Spend ₹${(5000 - total).toLocaleString('en-IN')} more to unlock a 15% off coupon!`);
+      } else {
+        suggestions.push('You qualify for our top-tier 15% off coupon! Apply PRASOFREE at checkout.');
+      }
+
+      suggestionsList.innerHTML = suggestions.map(s => `<p class="suggestion">${s}</p>`).join('');
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const cartContent = document.getElementById('cartContent');
+      const cartTotal = document.getElementById('cartTotal');
+      const usdToInr = 80;
+
+      if (cart.length === 0) {
+        cartContent.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+        cartTotal.innerHTML = '';
+        renderSuggestions(0);
+        return;
+      }
+
+      let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      let discount = 0;
+
+      if (appliedCoupon) {
+        if (appliedCoupon.type === 'percent') {
+          discount = total * (appliedCoupon.value / 100);
+        } else {
+          discount = appliedCoupon.value / usdToInr;
+        }
+      }
+
+      const finalTotal = total - discount;
+
+      cartContent.innerHTML = `
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${cart.map((item, index) => {
+              const itemTotal = item.price * item.quantity;
+              return `
+                <tr>
+                  <td>
+                    <div class="cart-item">
+                      <img src="${item.image}" alt="${item.name}" />
+                      <div class="cart-item-details">
+                        <h3>${item.name}</h3>
+                      </div>
+                    </div>
+                  </td>
+                  <td>₹${Math.round(item.price * usdToInr).toLocaleString('en-IN')}</td>
+                  <td>${item.size}</td>
+                  <td>
+                    <div class="quantity-control">
+                      <button onclick="updateQuantity(${index}, -1)">-</button>
+                      <span>${item.quantity}</span>
+                      <button onclick="updateQuantity(${index}, 1)">+</button>
+                    </div>
+                  </td>
+                  <td>₹${Math.round(itemTotal * usdToInr).toLocaleString('en-IN')}</td>
+                  <td><button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button></td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+
+      cartTotal.innerHTML = `
+        <p>Subtotal: ₹${Math.round(total * usdToInr).toLocaleString('en-IN')}</p>
+        ${discount > 0 ? `<p>Discount: -₹${Math.round(discount * usdToInr).toLocaleString('en-IN')}</p>` : ''}
+        <p>Total: ₹${Math.round(finalTotal * usdToInr).toLocaleString('en-IN')}</p>
+        <button class="checkout-btn" onclick="checkout(${finalTotal})">Proceed to Checkout</button>
+      `;
+
+      renderSuggestions(total * usdToInr);
+    }
+
+    function updateQuantity(index, change) {
+      const cart = getCart();
+      cart[index].quantity = Math.max(1, cart[index].quantity + change);
+      saveCart(cart);
+    }
+
+    function removeItem(index) {
+      const cart = getCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+    }
+
+    function checkout(total) {
+      const coinsEarned = Math.floor(total * 80 / 100); // ₹100 = 1 COIN
+      const currentCoins = getCoins();
+      saveCoins(currentCoins + coinsEarned);
+      alert(`Checkout successful! You earned ${coinsEarned} PRASO COINS.`);
+      localStorage.setItem('cart', '[]'); // Clear cart
+      appliedCoupon = null;
+      renderCart();
+    }
+
+    // Initialize on page load
+    window.addEventListener('load', () => {
+      if (!localStorage.getItem('guestId')) {
+        localStorage.setItem('guestId', Math.random().toString(36).slice(2));
+      }
+      renderCart();
+      renderRewards();
+      updateCoinCount();
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getAuth,
+      signOut,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+      authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+      projectId: "prasoclothing-ac3a3",
+      storageBucket: "prasoclothing-ac3a3.appspot.com",
+      messagingSenderId: "362254349990",
+      appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+      measurementId: "G-ETY5MMFPPM",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const userArea = document.getElementById("user-area");
+
+    onAuthStateChanged(auth, (user) => {
+      window.currentUser = user;
+      if (user) {
+        userArea.innerHTML = `
+          <div class="coin-container">
+            <i class="fas fa-coins coin-icon"></i>
+            <span class="coin-count" id="coinCount">0</span>
+          </div>
+          <div class="user-dropdown">
+            <i class="fas fa-user-circle user-icon"></i>
+            <div class="dropdown-content" id="dropdownContent">
+              <div class="dropdown-email">${user.email}</div>
+              <a href="account-settings.html">Account Settings</a>
+              <a href="rewards.html">Rewards</a>
+              <button onclick="logout()">Logout</button>
+            </div>
+          </div>
+          <div class="cart-container">
+            <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        `;
+        const userIcon = userArea.querySelector('.user-icon');
+        const dropdownContent = userArea.querySelector('.dropdown-content');
+        userIcon.addEventListener('click', () => {
+          dropdownContent.classList.toggle('show');
+        });
+        document.addEventListener('click', (event) => {
+          if (!userArea.contains(event.target)) {
+            dropdownContent.classList.remove('show');
+          }
+        });
+        updateCartCount();
+        updateCoinCount();
+      } else {
+        userArea.innerHTML = `
+          <div class="coin-container">
+            <i class="fas fa-coins coin-icon"></i>
+            <span class="coin-count" id="coinCount">0</span>
+          </div>
+          <a href="login.html"><i class="fas fa-user-circle"></i></a>
+          <div class="cart-container">
+            <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        `;
+        updateCartCount();
+        updateCoinCount();
+      }
+    });
+
+    window.logout = function () {
+      signOut(auth)
+        .then(() => {
+          alert("Logged out successfully!");
+          window.currentUser = null;
+          location.reload();
+        })
+        .catch((error) => {
+          alert("Logout failed: " + error.message);
+        });
+    };
+  </script>
+</body>
+</html>

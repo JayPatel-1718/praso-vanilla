@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Fitting Room - PRASO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #111;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Virtual Fitting Room</h1>
+  <p>This is where you can try on the product virtually.</p>
+
+  <!-- Product Details -->
+  <div id="product-details">
+    <h2 id="product-name">Loading...</h2>
+    <img id="product-image" src="" alt="Product Image" />
+  </div>
+
+  <script>
+    // Sample product data (replace with dynamic data from your database)
+    const allProducts = [
+      {
+        id: "1",
+        name: "Angel Tee",
+        image: "/assets/back_1.png",
+      },
+      {
+        id: "2",
+        name: "Fate Dominany",
+        image: "/assets/back_2.png",
+      },
+      {
+        id: "3",
+        name: "Trasher'25",
+        image: "/assets/Trasher.jpg",
+      },
+      {
+        id: "4",
+        name: "The '77 Jacket",
+        image: "/assets/Jacket_1.jpg",
+      },
+    ];
+
+    // Get product ID from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+
+    if (productId) {
+      const selectedProduct = allProducts.find((product) => product.id === productId);
+
+      if (selectedProduct) {
+        // Populate product details
+        document.getElementById("product-name").textContent = selectedProduct.name;
+        document.getElementById("product-image").src = selectedProduct.image;
+      } else {
+        document.getElementById("product-name").textContent = "Product Not Found!";
+        document.getElementById("product-image").style.display = "none";
+      }
+    } else {
+      document.getElementById("product-name").textContent = "No Product ID Provided!";
+      document.getElementById("product-image").style.display = "none";
+    }
+  </script>
+</body>
+</html>

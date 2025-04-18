@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Girl-Verse | PRASO</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/girly/css/girly.css" />
+  <style>
+    .user-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .user-icon {
+      cursor: pointer;
+      font-size: 24px;
+      color: #333;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .dropdown-content a, .dropdown-content button {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .dropdown-content a:hover, .dropdown-content button:hover {
+      background-color: #f1f1f1;
+    }
+    .dropdown-email {
+      padding: 12px 16px;
+      color: #666;
+      font-size: 14px;
+      border-bottom: 1px solid #eee;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-logo">PRASO</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/home/index.html">Home</a></li>
+      <li><a href="girl-shop.html">Shop</a></li>
+      <li><a href="#">Quiz</a></li>
+      <li><a href="#">Contact</a></li>
+      <div id="user-area" class="user-area">
+        <!-- User area will be dynamically updated -->
+      </div>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+  <!-- Add this in your <head> -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<section class="girly-hero-slider">
+  <div class="slide active" id="softgirl">
+    <div class="hero-card">
+      <h1>Welcome to the Girl-Verse 💅</h1>
+      <p class="vibe">🩰 Soft Girl</p>
+      <button class="girly-btn">Design Your Own Look ✨</button>
+    </div>
+  </div>
+  <div class="slide" id="grungebaddie">
+    <div class="hero-card">
+      <h1>Welcome to the Girl-Verse 💅</h1>
+      <p class="vibe">🖤 Grunge Baddie</p>
+      <button class="girly-btn">Design Your Own Look ✨</button>
+    </div>
+  </div>
+  <div class="slide" id="bossbabe">
+    <div class="hero-card">
+      <h1>Welcome to the Girl-Verse 💅</h1>
+      <p class="vibe">💼 Boss Babe</p>
+      <button class="girly-btn">Design Your Own Look ✨</button>
+    </div>
+  </div>
+</section>
+
+<section class="countdown-section">
+  <div class="countdown-container">
+    <div class="tshirt-image">
+      <img src="/assets/question-mark.jpg" alt="Stylish T-Shirt" />
+    </div>
+    <div class="countdown-content">
+      <h1 class="countdown-heading">Fits That Slay On Their Way🩰</h1>
+      <div class="countdown-wrapper">
+        <div class="time-box" id="days">
+          <label>Days</label>
+          <div class="flip-card">
+            <div class="card-face card-front">00</div>
+            <div class="card-face card-back">00</div>
+          </div>
+        </div>
+        <div class="time-box" id="hours">
+          <label>Hours</label>
+          <div class="flip-card">
+            <div class="card-face card-front">00</div>
+            <div class="card-face card-back">00</div>
+          </div>
+        </div>
+        <div class="time-box" id="minutes">
+          <label>Minutes</label>
+          <div class="flip-card">
+            <div class="card-face card-front">00</div>
+            <div class="card-face card-back">00</div>
+          </div>
+        </div>
+        <div class="time-box" id="seconds">
+          <label>Seconds</label>
+          <div class="flip-card">
+            <div class="card-face card-front">00</div>
+            <div class="card-face card-back">00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="moodboard-section">
+  
+  <div class="container">
+    <div class="floating-emoji emoji1">🧢</div>
+    <div class="floating-emoji emoji2">✨</div>
+    <div class="floating-emoji emoji3">💥</div>
+    <div class="floating-emoji emoji4">🔥</div>
+    <h2 class="moodboard-heading">Mood Board / Inspo ✨</h2>
+    <p class="main-caption">This is the vibe we’re building for you!</p>
+
+    <div class="moodboard-horizontal">
+      <div class="mood-item">
+        <img src="/assets/pastel-outfit.jpg" alt="Pastel Fit">
+        <div class="caption">Soft Girl Aesthetic 💗</div>
+      </div>
+      <div class="mood-item">
+        <img src="/assets/dreamy.png" alt="Dreamy Vibe">
+        <div class="caption">Dreamy Layers ☁️</div>
+      </div>
+      <div class="mood-item">
+        <img src="/assets/y2k.jpg" alt="Y2K Fit">
+        <div class="caption">Y2K Realness ✨</div>
+      </div>
+      <div class="mood-item">
+        <img src="/assets/old-money.jpg" alt="Fabric Detail">
+        <div class="caption">Old Money 🧵</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="featured-girls">
+    <h2>✨ Featured Picks</h2>
+    <div class="girly-grid">
+      <div class="girly-card">
+        <img src="/assets/teen-pink.jpg" alt="Pink Aesthetic Tee" />
+        <h4>Pink Aesthetic Tee</h4>
+        <p>Soft. Cute. Bold.</p>
+      </div>
+      <div class="girly-card">
+        <img src="/assets/jacket-girl.jpg" alt="Oversized Girly Jacket" />
+        <h4>Oversized Girly Jacket</h4>
+        <p>Slay the streets in cozy glam.</p>
+      </div>
+      <div class="girly-card">
+        <img src="/assets/ord.jpg" alt="Co-Ord Power Set" />
+        <h4>Co-Ord Power Set</h4>
+        <p>Confidence in every thread.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 PRASO Girl-Verse. All rights reserved 💘
+  </footer>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+  
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+  
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+  
+    setInterval(nextSlide, 5000);
+  </script>
+  
+  <script>
+    // Set launch date (May 1, 2025, 00:00:00)
+    const launchDate = new Date("2025-05-01T00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const timeLeft = launchDate - now;
+
+      // Calculate time components
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      // Format with leading zeros
+      const formatted = {
+        days: String(days).padStart(2, '0'),
+        hours: String(hours).padStart(2, '0'),
+        minutes: String(minutes).padStart(2, '0'),
+        seconds: String(seconds).padStart(2, '0')
+      };
+
+      // Update each time box
+      if (timeLeft >= 0) {
+        flipDigit('days', formatted.days);
+        flipDigit('hours', formatted.hours);
+        flipDigit('minutes', formatted.minutes);
+        flipDigit('seconds', formatted.seconds);
+      } else {
+        // Stop the countdown when time is up
+        clearInterval(countdownInterval);
+        document.querySelectorAll('.card-front').forEach(card => card.textContent = '00');
+      }
+    }
+
+    function flipDigit(id, newVal) {
+      const box = document.getElementById(id);
+      const front = box.querySelector('.card-front');
+      const back = box.querySelector('.card-back');
+      const flipCard = box.querySelector('.flip-card');
+
+      if (front.textContent !== newVal) {
+        back.textContent = newVal;
+        flipCard.classList.add('flip');
+        
+        setTimeout(() => {
+          front.textContent = newVal;
+          flipCard.classList.remove('flip');
+        }, 700);
+      }
+    }
+
+    // Run countdown every second
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Initial update to avoid 1-second delay
+    updateCountdown();
+  </script>
+
+  <script>
+  // Scroll hide/show navbar
+    const navbar = document.querySelector('.navbar');
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      navbar.style.top = scrollTop > lastScrollTop ? '-100px' : '0';
+      lastScrollTop = scrollTop;
+    });
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
+  
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+  
+      const userArea = document.getElementById("user-area");
+  
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userArea.innerHTML = `
+            <div class="user-dropdown">
+              <i class="fas fa-user-circle user-icon"></i>
+              <div class="dropdown-content" id="dropdownContent">
+                <div class="dropdown-email">${user.email}</div>
+                <a href="account-settings.html">Account Settings</a>
+                <a href="rewards.html">Rewards</a>
+                <button onclick="logout()">Logout</button>
+              </div>
+            </div>
+          `;
+          // Add event listener for dropdown toggle
+          const userIcon = userArea.querySelector('.user-icon');
+          const dropdownContent = userArea.querySelector('.dropdown-content');
+          userIcon.addEventListener('click', () => {
+            dropdownContent.classList.toggle('show');
+          });
+          // Close dropdown when clicking outside
+          document.addEventListener('click', (event) => {
+            if (!userArea.contains(event.target)) {
+              dropdownContent.classList.remove('show');
+            }
+          });
+        } else {
+          userArea.innerHTML = `
+            <a href="login.html"><i class="fas fa-user-circle"></i></a>
+          `;
+        }
+      });
+  
+      window.logout = function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out successfully!");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+  </script>
+</body>
+</html>
