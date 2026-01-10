@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Razorpay Test Payment</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f4f4f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        padding: 2rem;
+        text-align: center;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+      }
+
+      .container h2 {
+        font-size: 1.5rem;
+        color: #111;
+        margin-bottom: 1.5rem;
+      }
+
+      .pay-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        background: linear-gradient(45deg, #3399cc, #66b3ff);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        width: 100%;
+        font-weight: 500;
+      }
+
+      .pay-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .pay-button:disabled {
+        background: #aaa;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .test-details {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: #666;
+        line-height: 1.4;
+      }
+
+      .error-message {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: #cc3333;
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 1.5rem;
+          margin: 1rem;
+        }
+
+        .container h2 {
+          font-size: 1.3rem;
+        }
+
+        .pay-button {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Test Payment</h2>
+      <button id="payButton" class="pay-button">Pay ₹100</button>
+      <div class="test-details">
+        This is a test payment using Razorpay. Use card number
+        <strong>4111 1111 1111 1111</strong>, any future expiry, and any CVV for
+        testing.
+      </div>
+      <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script>
+      let isProcessing = false;
+
+      function loadRazorpayScript() {
+        return new Promise((resolve, reject) => {
+          if (document.getElementById("rzp-script")) {
+            resolve(true);
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+          script.id = "rzp-script";
+          script.onload = () => resolve(true);
+          script.onerror = () =>
+            reject(new Error("Failed to load Razorpay SDK"));
+          document.body.appendChild(script);
+        });
+      }
+
+      async function handlePayment() {
+        if (isProcessing) return;
+        isProcessing = true;
+
+        const payButton = document.getElementById("payButton");
+        const errorMessage = document.getElementById("errorMessage");
+        payButton.disabled = true;
+        payButton.textContent = "Processing...";
+        errorMessage.style.display = "none";
+
+        try {
+          const scriptLoaded = await loadRazorpayScript();
+          if (!scriptLoaded) {
+            throw new Error(
+              "Razorpay SDK failed to load. Please check your internet connection."
+            );
+          }
+
+          const options = {
+            key: "rzp_test_hjxU2rabuqRaSa", // Test API Key (replace with your own if needed)
+            amount: 100 * 100, // ₹100 in paise
+            currency: "INR",
+            name: "Praso Clothing",
+            description: "Test Transaction for Clothing Purchase",
+            image: "https://via.placeholder.com/100?text=Praso", // Placeholder logo
+            handler: function (response) {
+              alert(
+                `Payment Successful!\nPayment ID: ${response.razorpay_payment_id}`
+              );
+              resetButton();
+            },
+            prefill: {
+              name: "John Doe",
+              email: "john@example.com",
+              contact: "9876543210",
+            },
+            theme: {
+              color: "#3399cc",
+            },
+            modal: {
+              ondismiss: () => resetButton(),
+            },
+          };
+
+          const rzp = new Razorpay(options);
+
+          rzp.on("payment.failed", (response) => {
+            alert(`Payment Failed!\nError: ${response.error.description}`);
+            resetButton();
+          });
+
+          rzp.open();
+        } catch (error) {
+          errorMessage.textContent =
+            error.message || "An unexpected error occurred. Please try again.";
+          errorMessage.style.display = "block";
+          resetButton();
+        }
+      }
+
+      function resetButton() {
+        isProcessing = false;
+        const payButton = document.getElementById("payButton");
+        payButton.disabled = false;
+        payButton.textContent = "Pay ₹100";
+      }
+
+      document
+        .getElementById("payButton")
+        .addEventListener("click", handlePayment);
+    </script>
+  </body>
+</html>

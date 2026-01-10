@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - YourBrand</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="contact.css" />
+    <style>
+      .user-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .user-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .dropdown-content.show {
+        display: block;
+      }
+      .dropdown-content a,
+      .dropdown-content button {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .dropdown-content a:hover,
+      .dropdown-content button:hover {
+        background-color: #f1f1f1;
+      }
+      .dropdown-email {
+        padding: 12px 16px;
+        color: #666;
+        font-size: 14px;
+        border-bottom: 1px solid #eee;
+        word-break: break-all;
+      }
+      .cart-container {
+        position: relative;
+        display: inline-block;
+        margin-left: 15px;
+      }
+      .cart-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        min-width: 14px;
+        text-align: center;
+      }
+      /* Countdown Section Styles */
+      .countdown-section {
+        background: linear-gradient(135deg, #ffccd5, #e6e6fa);
+        padding: 80px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .countdown-container {
+        display: flex;
+        align-items: center;
+        max-width: 1200px;
+        width: 100%;
+        gap: 50px;
+        flex-wrap: wrap;
+      }
+      .tshirt-image {
+        flex: 1;
+        min-width: 300px;
+        text-align: center;
+      }
+      .tshirt-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        animation: float 3s ease-in-out infinite;
+      }
+      .countdown-content {
+        flex: 1;
+        min-width: 300px;
+        text-align: center;
+      }
+      .countdown-heading {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        color: #c71585;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in;
+      }
+      .countdown-wrapper {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        font-family: "Quicksand", sans-serif;
+      }
+      .time-box {
+        text-align: center;
+      }
+      .time-box label {
+        color: #ff69b4;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        display: block;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .flip-card {
+        position: relative;
+        width: 80px;
+        height: 100px;
+        perspective: 1000px;
+      }
+      .card-face {
+        background: #fff;
+        color: #c71585;
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 100px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        transition: transform 0.7s ease;
+        border: 2px solid #ff69b4;
+      }
+      .card-front {
+        z-index: 2;
+        transform: rotateX(0deg);
+      }
+      .card-back {
+        transform: rotateX(180deg);
+      }
+      .flip .card-front {
+        animation: flipTop 0.7s ease forwards;
+      }
+      .flip .card-back {
+        animation: flipBottom 0.7s ease forwards;
+      }
+      @keyframes flipTop {
+        0% {
+          transform: rotateX(0deg);
+        }
+        100% {
+          transform: rotateX(-180deg);
+        }
+      }
+      @keyframes flipBottom {
+        0% {
+          transform: rotateX(180deg);
+        }
+        100% {
+          transform: rotateX(0deg);
+        }
+      }
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      /* Responsive Countdown */
+      @media (max-width: 768px) {
+        .countdown-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .countdown-heading {
+          font-size: 1.8rem;
+        }
+        .flip-card {
+          width: 60px;
+          height: 80px;
+        }
+        .card-face {
+          font-size: 2rem;
+          line-height: 80px;
+        }
+        .tshirt-image img {
+          max-width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">PRASO</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ourstory.html">Our Story</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="rewards.html">Rewards</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <div id="user-area" class="user-area">
+          <div class="cart-container">
+            <a href="cart.html"
+              ><i class="fas fa-shopping-cart cart-icon"></i
+            ></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
+    <div class="max-w-5xl mx-auto p-6">
+      <!-- Header -->
+      <h1 class="text-4xl font-bold text-center mb-4">Contact Us</h1>
+      <p class="text-center text-lg mb-8">
+        We’re here to help you shine in style! Reach out, and we’ll get back to
+        you within 24 hours.
+      </p>
+
+      <!-- Main Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Contact Form -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-semibold mb-4">Send Us a Message</h2>
+          <form
+            action="https://formspree.io/f/jp704874@gmail.com"
+            method="POST"
+            class="space-y-4"
+          >
+            <div>
+              <label for="name" class="block text-sm font-medium">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="form-input w-full p-2 rounded-md"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="form-input w-full p-2 rounded-md"
+              />
+            </div>
+            <div>
+              <label for="inquiry" class="block text-sm font-medium"
+                >Inquiry Type</label
+              >
+              <select
+                id="inquiry"
+                name="inquiry"
+                class="form-input w-full p-2 rounded-md"
+              >
+                <option value="orders">Orders</option>
+                <option value="returns">Returns</option>
+                <option value="sizing">Sizing</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                required
+                class="form-input w-full p-2 rounded-md"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn w-full p-2 rounded-md">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="space-y-6">
+          <!-- Contact Details -->
+          <div>
+            <h2 class="text-2xl font-semibold mb-4">Get in Touch</h2>
+            <p>
+              <strong>Email:</strong>
+              <a href="mailto:contact@prasoclothing.com" class="hover:underline"
+                >contact@prasoclothing.com</a
+              >
+            </p>
+            <p><strong>Phone:</strong> +91 9313619495</p>
+            <p><strong>Hours:</strong> Mon-Sat, 9 AM - 5 PM</p>
+          </div>
+
+          <!-- FAQ Link -->
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Common Questions?</h3>
+            <a href="/faq" class="hover:underline">Visit our FAQ page</a>
+          </div>
+
+          <!-- Social Media -->
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Follow Us</h3>
+            <div class="flex space-x-4">
+              <a
+                href="https://www.instagram.com/praso.in/"
+                target="_blank"
+                class="social-icon"
+              >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.148 3.252-1.691 4.771-4.919 4.919-1.265.058-1.645.069-4.849.069-3.204 0-3.584-.012-4.849-.069-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.012-3.584.069-4.849.148-3.252 1.691-4.771 4.919-4.919 1.265-.058 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.058 1.281-.072 1.689-.072 4.947 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.947.072 3.259 0 3.667-.014 4.947-.072 4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.947 0-3.259-.014-3.667-.072-4.947-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.947-.072z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://wa.me/919876543210"
+                target="_blank"
+                class="social-icon"
+              >
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.olithic982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.447h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Store Location -->
+      <div class="mt-8">
+        <h2 class="text-2xl font-semibold mb-4">Visit Our Store</h2>
+        <p class="mb-4">C Wing, Kamala Mills, Lower Parel, Mumbai</p>
+        <div class="w-full h-64 bg-gray-200 rounded-md">
+          <iframe
+            class="w-full h-full rounded-md"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.9452430531123!2d72.82766531540282!3d19.00466428712332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce7e7d7b7b7b%3A0x4c4b4b4b4b4b4b4b!2sKamala%20Mills!5e0!3m2!1sen!2sin!4v1698765432109!6m8!1m7!1sCAoSLEFGMVFpcE5pV1pJYzR3bU1yY2hLZ1p3c1RjU2d3eV9iV2hZb0pvb1pY!2m2!1d19.0046643!2d72.8276653!3f0!4f0!5f0.7820865974627469"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <h3>PRASO</h3>
+          <p>Elevate your style with Praso Clothing.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Email: support@prasoclothing.com</p>
+          <p>Phone: +1 (555) 123-4567</p>
+        </div>
+        <div>
+          <h3>Stay Updated</h3>
+          <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Cart Functionality
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
+      }
+      function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+      }
+      function updateCartCount() {
+        const cart = getCart();
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const cartCountElement = document.getElementById("cartCount");
+        if (cartCountElement) {
+          cartCountElement.textContent = count;
+        }
+      }
+
+      // Product Data
+      const allProducts = [
+        {
+          id: "1",
+          name: "Angel Tee",
+          description: "A stylish tee for everyday wear.",
+          backstory: "Inspired by streetwear culture.",
+          originalPrice: "₹1,199",
+          image: "/assets/back_1.png",
+        },
+        {
+          id: "2",
+          name: "Fate Dominany",
+          description: "Bold and unique design.",
+          backstory: "Created for fashion-forward individuals.",
+          originalPrice: "₹1,299",
+          image: "/assets/back_2.png",
+        },
+        {
+          id: "3",
+          name: "Trasher'25",
+          description: "Classic design with a modern twist.",
+          backstory: "Perfect for casual outings.",
+          originalPrice: "₹1,399",
+          image: "/assets/Trasher.jpg",
+        },
+        {
+          id: "4",
+          name: "The '77 Jacket",
+          description: "Warm and stylish jacket.",
+          backstory: "A timeless piece for winter.",
+          originalPrice: "₹1,999",
+          image: "/assets/Jacket_1.jpg",
+        },
+      ];
+
+      function renderProducts() {
+        const grid = document.getElementById("product-grid");
+        grid.style.opacity = 0;
+        setTimeout(() => {
+          grid.innerHTML = "";
+          allProducts.forEach((product) => {
+            const card = document.createElement("div");
+            card.className = "product-card";
+            card.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" />
+                        <h4>${product.name}</h4>
+                    `;
+            grid.appendChild(card);
+          });
+          grid.style.animation = "fadeIn 0.8s ease-in-out forwards";
+        }, 100);
+      }
+
+      // Scroll hide/show navbar
+      const navbar = document.querySelector(".navbar");
+      let lastScrollTop = 0;
+      window.addEventListener("scroll", () => {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        navbar.style.top = scrollTop > lastScrollTop ? "-100px" : "0";
+        lastScrollTop = scrollTop;
+      });
+
+      // Hamburger toggle
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+
+      // Countdown Timer
+      const launchDate = new Date("2025-05-01T00:00:00").getTime();
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const timeLeft = launchDate - now;
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        const formatted = {
+          days: String(days).padStart(2, "0"),
+          hours: String(hours).padStart(2, "0"),
+          minutes: String(minutes).padStart(2, "0"),
+          seconds: String(seconds).padStart(2, "0"),
+        };
+        if (timeLeft >= 0) {
+          flipDigit("days", formatted.days);
+          flipDigit("hours", formatted.hours);
+          flipDigit("minutes", formatted.minutes);
+          flipDigit("seconds", formatted.seconds);
+        } else {
+          clearInterval(countdownInterval);
+          document
+            .querySelectorAll(".card-front")
+            .forEach((card) => (card.textContent = "00"));
+        }
+      }
+      function flipDigit(id, newVal) {
+        const box = document.getElementById(id);
+        const front = box.querySelector(".card-front");
+        const back = box.querySelector(".card-back");
+        const flipCard = box.querySelector(".flip-card");
+        if (front.textContent !== newVal) {
+          back.textContent = newVal;
+          flipCard.classList.add("flip");
+          setTimeout(() => {
+            front.textContent = newVal;
+            flipCard.classList.remove("flip");
+          }, 700);
+        }
+      }
+      const countdownInterval = setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // Initialize cart count and render products on load
+      window.addEventListener("load", () => {
+        updateCartCount();
+        renderProducts();
+      });
+    </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const userArea = document.getElementById("user-area");
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userArea.innerHTML = `
+                    <div class="user-dropdown">
+                        <i class="fas fa-user-circle user-icon"></i>
+                        <div class="dropdown-content" id="dropdownContent">
+                            <div class="dropdown-email">${user.email}</div>
+                            <a href="account-settings.html">Account Settings</a>
+                            <a href="rewards.html">Rewards</a>
+                            <button onclick="logout()">Logout</button>
+                        </div>
+                    </div>
+                    <div class="cart-container">
+                        <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                `;
+          const userIcon = userArea.querySelector(".user-icon");
+          const dropdownContent = userArea.querySelector(".dropdown-content");
+          userIcon.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
+          });
+          document.addEventListener("click", (event) => {
+            if (!userArea.contains(event.target)) {
+              dropdownContent.classList.remove("show");
+            }
+          });
+          updateCartCount();
+        } else {
+          userArea.innerHTML = `
+                    <a href="login.html"><i class="fas fa-user-circle"></i></a>
+                    <div class="cart-container">
+                        <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                `;
+          updateCartCount();
+        }
+      });
+
+      window.logout = function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out successfully!");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+    </script>
+  </body>
+</html>

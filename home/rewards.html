@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Praso Rewards</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Playfair+Display:wght@700&family=Anton&family=Inter:wght@400;600&family=League+Spartan:wght@600&display=swap"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        margin: 0;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 60px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        z-index: 1000;
+        transition: top 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      .nav-logo {
+        font-family: "Anton", sans-serif;
+        font-size: 42px;
+        color: #111;
+        letter-spacing: 2px;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        font-family: "League Spartan", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #111;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+        position: relative;
+        letter-spacing: 1.2px;
+      }
+
+      .nav-links a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2.5px;
+        background-color: #111;
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::before {
+        width: 100%;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #111;
+      }
+
+      .user-area {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .user-dropdown {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .user-icon {
+        font-size: 28px;
+        color: #111;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        z-index: 1001;
+        min-width: 200px;
+      }
+
+      .dropdown-content.show {
+        display: block;
+      }
+
+      .dropdown-content .dropdown-email {
+        padding: 10px 15px;
+        font-weight: bold;
+        color: #111;
+        font-family: "Quicksand", sans-serif;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .dropdown-content a,
+      .dropdown-content button {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #111;
+        font-size: 0.9rem;
+        font-family: "Quicksand", sans-serif;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .dropdown-content a:hover,
+      .dropdown-content button:hover {
+        background-color: #f0f0f0;
+      }
+
+      .cart-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .cart-icon {
+        font-size: 24px;
+        color: #111;
+      }
+
+      .cart-count {
+        background: #ff69b4;
+        color: #fff;
+        border-radius: 50%;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-family: "Quicksand", sans-serif;
+      }
+
+      /* Responsive Navbar */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 24px 20px;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: 80px;
+          right: 0;
+          background: rgba(255, 255, 255, 0.95);
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 30px 40px;
+          width: 260px;
+          display: none;
+          box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+          border-radius: 0 0 0 16px;
+        }
+
+        .nav-links.show {
+          display: flex;
+        }
+
+        .nav-links a {
+          font-size: 20px;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .user-area {
+          flex-direction: column;
+          gap: 20px;
+          align-items: flex-start;
+        }
+      }
+
+      /* Fashion Day Banner */
+      .fashion-banner {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        right: 0;
+        background: rgba(255, 105, 180, 0.9);
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        font-family: "Quicksand", sans-serif;
+        font-size: 1rem;
+      }
+
+      .marquee {
+        display: inline-block;
+        white-space: nowrap;
+        animation: marquee 15s linear infinite;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      /* Rewards Section */
+      .rewards-section {
+        padding: 160px 20px 80px;
+        background: linear-gradient(135deg, #f8e1e9, #e6e6fa);
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .rewards-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+      }
+
+      .rewards-heading {
+        font-family: "Anton", sans-serif;
+        font-size: 2.5rem;
+        color: #c71585;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .rewards-subtitle {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 40px;
+      }
+
+      .rewards-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .reward-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        text-align: center;
+      }
+
+      .reward-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .reward-card h3 {
+        font-family: "Playfair Display", serif;
+        color: #c71585;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .reward-card p {
+        font-family: "Quicksand", sans-serif;
+        color: #666;
+        font-size: 1rem;
+        margin-bottom: 20px;
+      }
+
+      .countdown {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.5rem;
+        color: #ff69b4;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .code-display {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.2rem;
+        color: #c71585;
+        background: #f8e1e9;
+        padding: 10px;
+        border-radius: 8px;
+        display: inline-block;
+      }
+
+      .code-input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: "Quicksand", sans-serif;
+        font-size: 1rem;
+        width: 200px;
+        margin-right: 10px;
+      }
+
+      .verify-btn {
+        background: #ff69b4;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-family: "Quicksand", sans-serif;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+      }
+
+      .verify-btn:hover {
+        background: #ff85c0;
+      }
+
+      .error-message {
+        color: #ff4d4f;
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.9rem;
+        margin-top: 10px;
+      }
+
+      /* Responsive Rewards */
+      @media (max-width: 768px) {
+        .rewards-heading {
+          font-size: 2rem;
+        }
+        .rewards-grid {
+          grid-template-columns: 1fr;
+        }
+        .code-input {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        .verify-btn {
+          width: 100%;
+        }
+        .fashion-banner {
+          font-size: 0.9rem;
+          padding: 8px 0;
+        }
+      }
+
+      /* Chatbot Styles */
+      .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #ff69b4;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .chat-box {
+        display: none;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      .chat-box.show {
+        display: block;
+      }
+
+      .chat-header {
+        background: #ff69b4;
+        color: #fff;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-header h4 {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+      }
+
+      .chat-header span {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .chat-content {
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 10px;
+      }
+
+      .bot-message,
+      .user-message {
+        margin: 10px 0;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-family: "Inter", sans-serif;
+      }
+
+      .bot-message {
+        background: #f8e1e9;
+        color: #333;
+      }
+
+      .user-message {
+        background: #ff69b4;
+        color: #fff;
+        margin-left: 20%;
+        text-align: right;
+      }
+
+      .bot-product {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        background: #f8e1e9;
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      .bot-product img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+
+      .chat-input-area {
+        display: flex;
+        border-top: 1px solid #eee;
+        padding: 10px;
+      }
+
+      .chat-input-area input {
+        flex: 1;
+        border: none;
+        padding: 10px;
+        border-radius: 20px;
+        font-family: "Inter", sans-serif;
+      }
+
+      .chat-input-area button {
+        background: #ff69b4;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        padding: 60px 30px 20px;
+        font-family: "Poppins", sans-serif;
+        position: relative;
+        z-index: 10;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-content h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #ffffffdd;
+        font-weight: 700;
+      }
+
+      .footer-content p,
+      .footer-content a {
+        color: #ddd;
+        font-size: 14px;
+        line-height: 1.6;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-content a:hover {
+        color: #ffcb74;
+      }
+
+      .footer-content ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-content input[type="email"] {
+        padding: 10px 15px;
+        border-radius: 25px;
+        border: none;
+        outline: none;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        transition: background 0.3s ease;
+      }
+
+      .footer-content input[type="email"]::placeholder {
+        color: #ccc;
+      }
+
+      .footer-content button {
+        border: none;
+        background: #ffcb74;
+        color: #000;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .footer-content button:hover {
+        background: #ffc350;
+      }
+
+      .socials {
+        margin-top: 15px;
+      }
+
+      .socials i {
+        font-size: 18px;
+        margin-right: 12px;
+        color: #fff;
+        transition: transform 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .socials i:hover {
+        transform: scale(1.2);
+        color: #ffcb74;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 13px;
+        color: #bbb;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- AI Chatbot -->
+    <div class="chat-icon" id="chatIcon">
+      <i class="fas fa-comments"></i>
+    </div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <h4>Style Bot</h4>
+        <span id="closeChat">×</span>
+      </div>
+      <div class="chat-content" id="chatContent">
+        <div class="bot-message">Hi! 👋 Let's find your perfect fit.</div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Type your answer..." />
+        <button id="sendChat"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">PRASO</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ourstory.html">Our Story</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="rewards.html">Rewards</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <div id="user-area" class="user-area">
+          <div class="cart-container">
+            <a href="cart.html"
+              ><i class="fas fa-shopping-cart cart-icon"></i
+            ></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
+
+    <!-- Rewards Section -->
+    <section class="rewards-section">
+      <div class="rewards-container">
+        <div class="fashion-banner">
+          <div class="marquee">FASHION DAY USE CODE: FASHIONDAY</div>
+        </div>
+        <h1 class="rewards-heading">Praso Rewards</h1>
+        <p class="rewards-subtitle">
+          Unlock exclusive discounts with our exciting rewards program!
+        </p>
+
+        <div class="rewards-grid">
+          <!-- Secret Code Reveal -->
+          <div class="reward-card">
+            <h3>Secret Code Reveal</h3>
+            <p>Wait for the daily code drop to grab a special discount!</p>
+            <div class="countdown" id="countdown">11:00:00</div>
+            <div class="code-display" id="codeDisplay" style="display: none">
+              Code: FASHION11 (15% Off)
+            </div>
+          </div>
+
+          <!-- Find the Hidden Code -->
+          <div class="reward-card">
+            <h3>Find the Hidden Code</h3>
+            <p>
+              Explore our website to find a hidden discount code! Hint: Check
+              the footer of our story page.
+            </p>
+            <input
+              type="text"
+              class="code-input"
+              id="hiddenCodeInput"
+              placeholder="Enter code"
+            />
+            <button class="verify-btn" onclick="verifyHiddenCode()">
+              Verify Code
+            </button>
+            <p class="error-message" id="errorMessage"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <h3>PRASO</h3>
+          <p>Elevate your style with Praso Clothing.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="our-story.html">Our Story</a></li>
+            <li><a href="rewards.html">Rewards</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Email: contact@prasoclothing.com</p>
+          <p>Phone: +91 9313619495</p>
+        </div>
+        <div>
+          <h3>Stay Updated</h3>
+          <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Cart Functionality
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
+      }
+
+      function updateCartCount() {
+        const cart = getCart();
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const cartCountElement = document.getElementById("cartCount");
+        if (cartCountElement) {
+          cartCountElement.textContent = count;
+        }
+      }
+
+      // Hamburger Menu
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+
+      // Scroll hide/show navbar
+      let lastScrollTop = 0;
+      const navbar = document.querySelector(".navbar");
+      window.addEventListener("scroll", () => {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        navbar.style.top = scrollTop > lastScrollTop ? "-100px" : "0";
+        lastScrollTop = scrollTop;
+      });
+
+      // Chatbot
+      const chatIcon = document.getElementById("chatIcon");
+      const chatBox = document.getElementById("chatBox");
+      const closeChat = document.getElementById("closeChat");
+      const chatContent = document.getElementById("chatContent");
+      const chatInput = document.getElementById("chatInput");
+      const sendChat = document.getElementById("sendChat");
+      let questionIndex = 0;
+      let userAnswers = {};
+      const questions = [
+        { key: "gender", q: "What do you identify as? (Male/Female/Other)" },
+        { key: "style", q: "What do you prefer? T-shirts or Sweatshirts?" },
+        { key: "size", q: "What size do you usually wear? (S/M/L/XL)" },
+        { key: "color", q: "Any favorite color or theme?" },
+        {
+          key: "budget",
+          q: "What's your preferred price range? (₹1000/₹1500/₹2000+)",
+        },
+      ];
+      const productRecommendations = {
+        tshirt: ["Angel Tee", "Trasher'25"],
+        sweatshirt: ["Fate Dominany", "The '77 Jacket"],
+      };
+      chatIcon.onclick = () => {
+        chatBox.classList.add("show");
+      };
+      closeChat.onclick = () => {
+        chatBox.classList.remove("show");
+      };
+      sendChat.onclick = () => {
+        const userMsg = chatInput.value.trim();
+        if (!userMsg) return;
+        chatContent.innerHTML += `<div class="user-message">${userMsg}</div>`;
+        chatContent.scrollTop = chatContent.scrollHeight;
+        userAnswers[questions[questionIndex].key] = userMsg;
+        chatInput.value = "";
+        questionIndex++;
+        if (questionIndex < questions.length) {
+          setTimeout(() => {
+            chatContent.innerHTML += `<div class="bot-message">${questions[questionIndex].q}</div>`;
+            chatContent.scrollTop = chatContent.scrollHeight;
+          }, 500);
+        } else {
+          setTimeout(() => {
+            const stylePref = userAnswers.style.toLowerCase().includes("sweat")
+              ? "sweatshirt"
+              : "tshirt";
+            const recommended = productRecommendations[stylePref];
+            chatContent.innerHTML += `<div class="bot-message">Based on your answers, here’s what you might love:</div>`;
+            recommended.forEach((name) => {
+              const product = [
+                {
+                  name: "Angel Tee",
+                  image: "/assets/back_1.png",
+                  originalPrice: "₹1,199",
+                },
+                {
+                  name: "Fate Dominany",
+                  image: "/assets/back_2.png",
+                  originalPrice: "₹1,299",
+                },
+                {
+                  name: "Trasher'25",
+                  image: "/assets/Trasher.jpg",
+                  originalPrice: "₹1,399",
+                },
+                {
+                  name: "The '77 Jacket",
+                  image: "/assets/Jacket_1.jpg",
+                  originalPrice: "₹1,999",
+                },
+              ].find((p) => p.name.includes(name));
+              if (product) {
+                chatContent.innerHTML += `
+                <div class="bot-product">
+                  <img src="${product.image}" alt="${product.name}"/>
+                  <div>
+                    <strong>${product.name}</strong><br/>
+                    <span>${product.originalPrice}</span>
+                  </div>
+                </div>
+              `;
+              }
+            });
+            chatContent.scrollTop = chatContent.scrollHeight;
+          }, 1000);
+        }
+      };
+
+      // Newsletter Placeholder
+      function subscribeNewsletter(event) {
+        event.preventDefault();
+        alert("Subscribed successfully!");
+      }
+
+      // Secret Code Reveal
+      function startCountdown() {
+        const countdownElement = document.getElementById("countdown");
+        const codeDisplay = document.getElementById("codeDisplay");
+        const targetTime = localStorage.getItem("revealTargetTime");
+        const now = new Date();
+
+        // Set target time to 11 hours from now if not set or expired
+        if (!targetTime || new Date(targetTime) <= now) {
+          const newTarget = new Date(
+            now.getTime() + 11 * 60 * 60 * 1000
+          ).toISOString();
+          localStorage.setItem("revealTargetTime", newTarget);
+          localStorage.removeItem("revealedCode");
+        }
+
+        function updateCountdown() {
+          const currentTime = new Date();
+          const target = new Date(localStorage.getItem("revealTargetTime"));
+          const diff = target - currentTime;
+
+          if (diff <= 0) {
+            countdownElement.style.display = "none";
+            codeDisplay.style.display = "inline-block";
+            localStorage.setItem(
+              "revealedCode",
+              JSON.stringify({ code: "FASHION11", discount: "15% Off" })
+            );
+            // Reset target to next day midnight
+            const nextMidnight = new Date();
+            nextMidnight.setHours(24, 0, 0, 0);
+            localStorage.setItem(
+              "revealTargetTime",
+              nextMidnight.toISOString()
+            );
+            return;
+          }
+
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+          countdownElement.textContent = `${hours
+            .toString()
+            .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+            .toString()
+            .padStart(2, "0")}`;
+        }
+
+        // Initial check
+        updateCountdown();
+        // Update every second
+        setInterval(updateCountdown, 1000);
+
+        // Show code if already revealed
+        const revealedCode = JSON.parse(
+          localStorage.getItem("revealedCode") || "{}"
+        );
+        if (revealedCode && revealedCode.code) {
+          countdownElement.style.display = "none";
+          codeDisplay.style.display = "inline-block";
+        }
+      }
+
+      // Verify Hidden Code
+      function verifyHiddenCode() {
+        const input = document.getElementById("hiddenCodeInput").value.trim();
+        const errorMessage = document.getElementById("errorMessage");
+        errorMessage.textContent = "";
+
+        if (input.toUpperCase() === "HIDDEN25") {
+          localStorage.setItem(
+            "hiddenCode",
+            JSON.stringify({ code: "HIDDEN25", discount: "25% Off" })
+          );
+          errorMessage.style.color = "#28a745";
+          errorMessage.textContent = "Code verified! Use HIDDEN25 for 25% off!";
+        } else {
+          errorMessage.textContent = "Invalid code. Try again!";
+        }
+      }
+
+      // Initialize
+      window.addEventListener("load", () => {
+        updateCartCount();
+        startCountdown();
+        chatContent.innerHTML += `<div class="bot-message">${questions[0].q}</div>`;
+      });
+    </script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const userArea = document.getElementById("user-area");
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userArea.innerHTML = `
+          <div class="user-dropdown">
+            <i class="fas fa-user-circle user-icon"></i>
+            <div class="dropdown-content" id="dropdownContent">
+              <div class="dropdown-email">${user.email}</div>
+              <a href="account-settings.html">Account Settings</a>
+              <a href="rewards.html">Rewards</a>
+              <button onclick="logout()">Logout</button>
+            </div>
+          </div>
+          <div class="cart-container">
+            <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        `;
+          const userIcon = userArea.querySelector(".user-icon");
+          const dropdownContent = userArea.querySelector(".dropdown-content");
+          userIcon.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
+          });
+          document.addEventListener("click", (event) => {
+            if (!userArea.contains(event.target)) {
+              dropdownContent.classList.remove("show");
+            }
+          });
+          updateCartCount();
+        } else {
+          userArea.innerHTML = `
+          <a href="login.html"><i class="fas fa-user-circle user-icon"></i></a>
+          <div class="cart-container">
+            <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        `;
+          updateCartCount();
+        }
+      });
+
+      window.logout = function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out successfully!");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+    </script>
+  </body>
+</html>

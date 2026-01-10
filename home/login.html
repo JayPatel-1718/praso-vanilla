@@ -1,176 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - PRASO</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .login-container {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 300px;
-      text-align: center;
-    }
-
-    .login-container h2 {
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-
-    .form-group button {
-      width: 100%;
-      padding: 10px;
-      background: #111;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .form-group button:hover {
-      background: #333;
-    }
-
-    .register-link {
-      margin-top: 15px;
-    }
-
-    .register-link a {
-      color: #ff4d4d;
-      text-decoration: none;
-    }
-
-    /* Toast Notification */
-    .toast-message {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #111;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 9999;
-    }
-
-    .toast-message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
-</head>
-<body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required />
-      </div>
-      <div class="form-group">
-        <button type="submit">Login</button>
-      </div>
-    </form>
-    <div class="register-link">
-      Don't have an account? <a href="register.html">Register here</a>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="toast-message"></div>
-
-  <script type="module">
-    // Import Firebase SDK
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    // Your Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
-      authDomain: "prasoclothing-ac3a3.firebaseapp.com",
-      projectId: "prasoclothing-ac3a3",
-      storageBucket: "prasoclothing-ac3a3.appspot.com",
-      messagingSenderId: "362254349990",
-      appId: "1:362254349990:web:b3f89bd304f3468e92e667",
-      measurementId: "G-ETY5MMFPPM",
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Handle login form submission
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      try {
-        // Sign in the user
-        await signInWithEmailAndPassword(auth, email, password);
-
-        // Show success toast
-        showToast("Login successful!");
-        setTimeout(() => {
-          window.location.href = "index.html"; // Redirect to home page
-        }, 2000); // Wait 2 seconds before redirecting
-      } catch (error) {
-        // Handle errors
-        if (error.code === "auth/user-not-found") {
-          alert("Error: User not found. Please register first.");
-        } else if (error.code === "auth/wrong-password") {
-          alert("Error: Incorrect password. Please try again.");
-        } else {
-          alert("Login failed: " + error.message);
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - PRASO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f0f2f5;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-    });
 
-    // Toast notification function
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
+      .login-container {
+        background: #ffffff;
+        width: 360px;
+        padding: 35px 30px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+        transition: 0.4s;
+      }
 
-      // Auto-remove after 3 seconds
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3000);
-    }
-   
-    
-  </script>
-</body>
+      .login-container h2 {
+        font-size: 26px;
+        font-weight: 600;
+        color: #111;
+        margin-bottom: 10px;
+      }
+
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .form-group input {
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus {
+        border-color: #111;
+        background: #fafafa;
+      }
+
+      .form-group button {
+        margin-top: 10px;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        background: #111;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .form-group button:hover {
+        background: #333;
+      }
+
+      .register-link {
+        font-size: 14px;
+        color: #777;
+      }
+
+      .register-link a {
+        color: #111;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* Toast */
+      .toast-message {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 14px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #111;
+        color: white;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        z-index: 9999;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .toast-message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .toast-success {
+        background: #28a745;
+      }
+
+      .toast-error {
+        background: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <div class="register-link">
+        Don't have an account? <a href="register.html">Register here</a>
+      </div>
+    </div>
+
+    <div id="toast" class="toast-message"></div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+
+          try {
+            await signInWithEmailAndPassword(auth, email, password);
+
+            showToast("Login successful!", true);
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2000);
+          } catch (error) {
+            if (error.code === "auth/user-not-found") {
+              showToast("User not found. Please register first.", false);
+            } else if (error.code === "auth/wrong-password") {
+              showToast("Incorrect password. Please try again.", false);
+            } else {
+              showToast("Login failed: " + error.message, false);
+            }
+          }
+        });
+
+      function showToast(message, isSuccess = true) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = "toast-message show";
+        toast.classList.add(isSuccess ? "toast-success" : "toast-error");
+
+        setTimeout(() => {
+          toast.className = "toast-message";
+        }, 3000);
+      }
+    </script>
+  </body>
 </html>

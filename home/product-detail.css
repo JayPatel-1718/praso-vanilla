@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap");
 
 * {
   margin: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: #f4f4f7;
   color: #333;
   line-height: 1.6;
@@ -16,7 +16,7 @@ body {
 
 /* NAVBAR */
 /* Import fancy fonts (optional: add to HTML head) */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap");
 
 .navbar {
   display: flex;
@@ -34,7 +34,7 @@ body {
 }
 
 .nav-logo {
-  font-family: 'Anton', sans-serif;
+  font-family: "Anton", sans-serif;
   font-size: 42px;
   color: #111;
   letter-spacing: 2px;
@@ -53,7 +53,7 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: #111;
@@ -64,7 +64,7 @@ body {
 }
 
 .nav-links a::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -153,7 +153,9 @@ body {
   .nav-links a {
     font-size: 20px;
   }
-}.user-icon, .user-profile {
+}
+.user-icon,
+.user-profile {
   position: relative;
   cursor: pointer;
   color: white;
@@ -162,7 +164,7 @@ body {
 
 .user-profile span {
   padding: 8px 14px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
 }
 
@@ -177,7 +179,7 @@ body {
   display: none;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .user-profile:hover .dropdown {
@@ -448,7 +450,7 @@ footer {
   backdrop-filter: blur(12px);
   color: #fff;
   padding: 60px 30px 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   position: relative;
   z-index: 10;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -542,22 +544,40 @@ footer {
   margin-top: 40px;
   font-size: 13px;
   color: #bbb;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 20px;
 }
 
 /* ANIMATIONS */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

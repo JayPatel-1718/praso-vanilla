@@ -1,234 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shop Page</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="/girly/css/girl-shop.css"/>
-</head>
-<body>
-  <style>
-    .user-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .user-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: #fff;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .dropdown-content.show {
-      display: block;
-    }
-    .dropdown-content a, .dropdown-content button {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .dropdown-content a:hover, .dropdown-content button:hover {
-      background-color: #f1f1f1;
-    }
-    .dropdown-email {
-      padding: 12px 16px;
-      color: #666;
-      font-size: 14px;
-      border-bottom: 1px solid #eee;
-      word-break: break-all;
-    }
-    .cart-container {
-      position: relative;
-      display: inline-block;
-      margin-left: 15px;
-    }
-    .cart-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .cart-count {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background-color: #ff4444;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
-      min-width: 14px;
-      text-align: center;
-    }
-  </style>
-  <nav class="navbar">
-    <div class="nav-logo">PRASO</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="girly.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="#">Quiz</a></li>
-      <li><a href="#">Contact</a></li>
-      <div id="user-area" class="user-area">
-        <div class="cart-container">
-          <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
-          <span class="cart-count" id="cartCount">0</span>
-        </div>
-      </div>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
-
-  <!-- Wardrobe Overlay -->
-  <div class="wardrobe-overlay" id="wardrobeOverlay">
-    <img src="/assets/girl-wadrobe.png" alt="Wardrobe" class="wardrobe-image" id="wardrobeImage"/>
-  </div>
-
-  <!-- Category Selection Modal -->
-  <div class="category-modal" id="categoryModal">
-    <div class="category-modal-content">
-      <h2>What do you want to Shop?</h2>
-      <div class="category-options">
-        <button class="category-option" data-category="T-Shirts">T-Shirts</button>
-        <button class="category-option" data-category="Sweatshirt">Sweatshirt</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SHOP SECTION -->
-  <section class="shop-section" id="shopSection">
-    <h1>Shop Our Collection</h1>
-    <!-- Category Buttons -->
-    <div class="category-buttons" id="categoryButtons"></div>
-    <!-- Products -->
-    <div class="product-grid" id="productGrid"></div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-content">
-      <div>
-        <h3>PRASO</h3>
-        <p>Elevate your style with Praso Clothing.</p>
-      </div>
-      <div>
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Shop</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Contact</h3>
-        <p>Email: support@prasoclothing.com</p>
-        <p>Phone: +1 (555) 123-4567</p>
-      </div>
-      <div>
-        <h3>Stay Updated</h3>
-        <form onsubmit="subscribeNewsletter(event)">
-          <input type="email" placeholder="Your email" required />
-          <button type="submit"><i class="fas fa-paper-plane"></i></button>
-        </form>
-        <div class="socials">
-          <i class="fab fa-facebook-f"></i>
-          <i class="fab fa-instagram"></i>
-          <i class="fab fa-twitter"></i>
-        </div>
-      </div>
-    </div>
-    <p class="footer-bottom"> © 2025 PRASO Girl-Verse. All rights reserved 💘</p>
-  </footer>
-
-  <!-- SCRIPT -->
-  <script>
-    // Cart Functionality
-    function getCart() {
-      return JSON.parse(localStorage.getItem('cart') || '[]');
-    }
-
-    function saveCart(cart) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-    }
-
-    function updateCartCount() {
-      const cart = getCart();
-      const count = cart.reduce((total, item) => total + item.quantity, 0);
-      const cartCountElement = document.getElementById('cartCount');
-      if (cartCountElement) {
-        cartCountElement.textContent = count;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/girly/css/girl-shop.css" />
+  </head>
+  <body>
+    <style>
+      .user-dropdown {
+        position: relative;
+        display: inline-block;
       }
-    }
+      .user-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .dropdown-content.show {
+        display: block;
+      }
+      .dropdown-content a,
+      .dropdown-content button {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .dropdown-content a:hover,
+      .dropdown-content button:hover {
+        background-color: #f1f1f1;
+      }
+      .dropdown-email {
+        padding: 12px 16px;
+        color: #666;
+        font-size: 14px;
+        border-bottom: 1px solid #eee;
+        word-break: break-all;
+      }
+      .cart-container {
+        position: relative;
+        display: inline-block;
+        margin-left: 15px;
+      }
+      .cart-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        min-width: 14px;
+        text-align: center;
+      }
+    </style>
+    <nav class="navbar">
+      <div class="nav-logo">PRASO</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="girly.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="#">Quiz</a></li>
+        <li><a href="#">Contact</a></li>
+        <div id="user-area" class="user-area">
+          <div class="cart-container">
+            <a href="cart.html"
+              ><i class="fas fa-shopping-cart cart-icon"></i
+            ></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
 
-    // Product Data
-    const products = [
-      { id: 5, name: "PCMY'25", price: 19.99, image: "/assets/PCMY'25.jpg", category: 'T-Shirts' },
-      { id: 6, name: 'Alfriceden', price: 24.99, image: '/assets/Alfriceden.jpg', category: 'T-Shirts' },
-      { id: 7, name: 'Where The Space?', price: 24.99, image: '/assets/Where_the_space.jpg', category: 'T-Shirts' },
-      { id: 8, name: 'ASTRA', price: 39.99, image: '/assets/ASTRA.jpg', category: 'Sweatshirt' },
-      { id: 9, name: 'Private', price: 44.99, image: '/assets/PRIVATE.jpg', category: 'Sweatshirt' },
-      { id: 10, name: 'DGOTTO - X1', price: 49.99, image: '/assets/DGOTTO.jpg', category: 'Sweatshirt' }
-    ];
+    <!-- Wardrobe Overlay -->
+    <div class="wardrobe-overlay" id="wardrobeOverlay">
+      <img
+        src="/assets/girl-wadrobe.png"
+        alt="Wardrobe"
+        class="wardrobe-image"
+        id="wardrobeImage"
+      />
+    </div>
 
-    const usdToInr = 80;
-    let selectedCategory = null;
+    <!-- Category Selection Modal -->
+    <div class="category-modal" id="categoryModal">
+      <div class="category-modal-content">
+        <h2>What do you want to Shop?</h2>
+        <div class="category-options">
+          <button class="category-option" data-category="T-Shirts">
+            T-Shirts
+          </button>
+          <button class="category-option" data-category="Sweatshirt">
+            Sweatshirt
+          </button>
+        </div>
+      </div>
+    </div>
 
-    const productGrid = document.getElementById('productGrid');
-    const categoryButtons = document.getElementById('categoryButtons');
-    const wardrobeOverlay = document.getElementById('wardrobeOverlay');
-    const categoryModal = document.getElementById('categoryModal');
-    const shopSection = document.getElementById('shopSection');
+    <!-- SHOP SECTION -->
+    <section class="shop-section" id="shopSection">
+      <h1>Shop Our Collection</h1>
+      <!-- Category Buttons -->
+      <div class="category-buttons" id="categoryButtons"></div>
+      <!-- Products -->
+      <div class="product-grid" id="productGrid"></div>
+    </section>
 
-    function renderCategories() {
-      const categories = [...new Set(products.map(p => p.category))];
-      categoryButtons.innerHTML = '';
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <h3>PRASO</h3>
+          <p>Elevate your style with Praso Clothing.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Email: support@prasoclothing.com</p>
+          <p>Phone: +1 (555) 123-4567</p>
+        </div>
+        <div>
+          <h3>Stay Updated</h3>
+          <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">
+        © 2025 PRASO Girl-Verse. All rights reserved 💘
+      </p>
+    </footer>
 
-      categories.forEach(category => {
-        const btn = document.createElement('button');
-        btn.textContent = category;
-        btn.className = 'category-button';
-        if (selectedCategory === category) btn.classList.add('active');
-        btn.onclick = () => {
-          selectedCategory = selectedCategory === category ? null : category;
-          renderProducts();
-          renderCategories();
-        };
-        categoryButtons.appendChild(btn);
-      });
-    }
+    <!-- SCRIPT -->
+    <script>
+      // Cart Functionality
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
+      }
 
-    function renderProducts() {
-      productGrid.innerHTML = '';
-      const filtered = selectedCategory
-        ? products.filter(p => p.category === selectedCategory)
-        : products;
+      function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+      }
 
-      filtered.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="product-image" />
+      function updateCartCount() {
+        const cart = getCart();
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const cartCountElement = document.getElementById("cartCount");
+        if (cartCountElement) {
+          cartCountElement.textContent = count;
+        }
+      }
+
+      // Product Data
+      const products = [
+        {
+          id: 11,
+          name: "Happy Bear",
+          price: 12.0,
+          image: "/assets/a.png",
+          category: "T-Shirts",
+        },
+        {
+          id: 12,
+          name: "Capyy-Bara",
+          price: 24.99,
+          image: "/assets/b.png",
+          category: "T-Shirts",
+        },
+        {
+          id: 13,
+          name: "Heart-Mind?",
+          price: 24.99,
+          image: "/assets/c.png",
+          category: "T-Shirts",
+        },
+        {
+          id: 14,
+          name: "Poy! More",
+          price: 30.99,
+          image: "/assets/d.png",
+          category: "T-Shirts",
+        },
+        {
+          id: 15,
+          name: "Girl Luck",
+          price: 44.99,
+          image: "/assets/e.png",
+          category: "T-Shirts",
+        },
+      ];
+
+      const usdToInr = 80;
+      let selectedCategory = null;
+
+      const productGrid = document.getElementById("productGrid");
+      const categoryButtons = document.getElementById("categoryButtons");
+      const wardrobeOverlay = document.getElementById("wardrobeOverlay");
+      const categoryModal = document.getElementById("categoryModal");
+      const shopSection = document.getElementById("shopSection");
+
+      function renderCategories() {
+        const categories = [...new Set(products.map((p) => p.category))];
+        categoryButtons.innerHTML = "";
+
+        categories.forEach((category) => {
+          const btn = document.createElement("button");
+          btn.textContent = category;
+          btn.className = "category-button";
+          if (selectedCategory === category) btn.classList.add("active");
+          btn.onclick = () => {
+            selectedCategory = selectedCategory === category ? null : category;
+            renderProducts();
+            renderCategories();
+          };
+          categoryButtons.appendChild(btn);
+        });
+      }
+
+      function renderProducts() {
+        productGrid.innerHTML = "";
+        const filtered = selectedCategory
+          ? products.filter((p) => p.category === selectedCategory)
+          : products;
+
+        filtered.forEach((product) => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.innerHTML = `
+          <img src="${product.image}" alt="${
+            product.name
+          }" class="product-image" />
           <h3>${product.name}</h3>
           <div class="product-price-cart">
-            <span class="product-price">₹${Math.round(product.price * usdToInr).toLocaleString('en-IN')}</span>
+            <span class="product-price">₹${Math.round(
+              product.price * usdToInr
+            ).toLocaleString("en-IN")}</span>
             <select class="size-select" title="Select size">
               <option value="S">S</option>
               <option value="M">M</option>
@@ -238,86 +289,87 @@
           </div>
         `;
 
-        card.addEventListener('click', (event) => {
-          if (!event.target.closest('select')) {
-            window.location.href = `product-detail.html?id=${product.id}`;
-          }
+          card.addEventListener("click", (event) => {
+            if (!event.target.closest("select")) {
+              window.location.href = `/home/product-detail.html?id=${product.id}`;
+            }
+          });
+
+          productGrid.appendChild(card);
         });
+      }
 
-        productGrid.appendChild(card);
+      // Wardrobe and Modal Logic
+      wardrobeOverlay.addEventListener("click", () => {
+        wardrobeOverlay.style.display = "none";
+        shopSection.classList.add("blur");
+        categoryModal.style.display = "flex";
       });
-    }
 
-    // Wardrobe and Modal Logic
-    wardrobeOverlay.addEventListener('click', () => {
-      wardrobeOverlay.style.display = 'none';
-      shopSection.classList.add('blur');
-      categoryModal.style.display = 'flex';
-    });
-
-    document.querySelectorAll('.category-option').forEach(button => {
-      button.addEventListener('click', () => {
-        selectedCategory = button.dataset.category;
-        categoryModal.style.display = 'none';
-        shopSection.classList.remove('blur');
-        renderCategories();
-        renderProducts();
+      document.querySelectorAll(".category-option").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedCategory = button.dataset.category;
+          categoryModal.style.display = "none";
+          shopSection.classList.remove("blur");
+          renderCategories();
+          renderProducts();
+        });
       });
-    });
 
-    // Scroll hide/show navbar
-    const navbar = document.querySelector('.navbar');
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      navbar.style.top = scrollTop > lastScrollTop ? '-100px' : '0';
-      lastScrollTop = scrollTop;
-    });
+      // Scroll hide/show navbar
+      const navbar = document.querySelector(".navbar");
+      let lastScrollTop = 0;
+      window.addEventListener("scroll", () => {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        navbar.style.top = scrollTop > lastScrollTop ? "-100px" : "0";
+        lastScrollTop = scrollTop;
+      });
 
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
+      // Hamburger toggle
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
 
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
 
-    // Initialize cart count on page load
-    window.addEventListener('load', () => {
-      updateCartCount();
-    });
+      // Initialize cart count on page load
+      window.addEventListener("load", () => {
+        updateCartCount();
+      });
 
-    // Initial render
-    renderCategories();
-    renderProducts();
-  </script>
+      // Initial render
+      renderCategories();
+      renderProducts();
+    </script>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import {
-      getAuth,
-      signOut,
-      onAuthStateChanged,
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
-      authDomain: "prasoclothing-ac3a3.firebaseapp.com",
-      projectId: "prasoclothing-ac3a3",
-      storageBucket: "prasoclothing-ac3a3.appspot.com",
-      messagingSenderId: "362254349990",
-      appId: "1:362254349990:web:b3f89bd304f3468e92e667",
-      measurementId: "G-ETY5MMFPPM",
-    };
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-    const userArea = document.getElementById("user-area");
+      const userArea = document.getElementById("user-area");
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userArea.innerHTML = `
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userArea.innerHTML = `
           <div class="user-dropdown">
             <i class="fas fa-user-circle user-icon"></i>
             <div class="dropdown-content" id="dropdownContent">
@@ -332,39 +384,39 @@
             <span class="cart-count" id="cartCount">0</span>
           </div>
         `;
-        const userIcon = userArea.querySelector('.user-icon');
-        const dropdownContent = userArea.querySelector('.dropdown-content');
-        userIcon.addEventListener('click', () => {
-          dropdownContent.classList.toggle('show');
-        });
-        document.addEventListener('click', (event) => {
-          if (!userArea.contains(event.target)) {
-            dropdownContent.classList.remove('show');
-          }
-        });
-        updateCartCount();
-      } else {
-        userArea.innerHTML = `
+          const userIcon = userArea.querySelector(".user-icon");
+          const dropdownContent = userArea.querySelector(".dropdown-content");
+          userIcon.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
+          });
+          document.addEventListener("click", (event) => {
+            if (!userArea.contains(event.target)) {
+              dropdownContent.classList.remove("show");
+            }
+          });
+          updateCartCount();
+        } else {
+          userArea.innerHTML = `
           <a href="login.html"><i class="fas fa-user-circle"></i></a>
           <div class="cart-container">
             <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
             <span class="cart-count" id="cartCount">0</span>
           </div>
         `;
-        updateCartCount();
-      }
-    });
+          updateCartCount();
+        }
+      });
 
-    window.logout = function () {
-      signOut(auth)
-        .then(() => {
-          alert("Logged out successfully!");
-          location.reload();
-        })
-        .catch((error) => {
-          alert("Logout failed: " + error.message);
-        });
-    };
-  </script>
-</body>
+      window.logout = function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out successfully!");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+    </script>
+  </body>
 </html>

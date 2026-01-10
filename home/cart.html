@@ -1,510 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shopping Cart</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #f0f0f4;
-  color: #222;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-    @import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap');
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 60px;
-      position: sticky;
-      top: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-      z-index: 1000;
-      transition: top 0.3s ease;
-    }
-    
-    .nav-logo {
-      font-family: 'Anton', sans-serif;
-      font-size: 42px;
-      color: #111;
-      letter-spacing: 2px;
-    }
-    
-    .nav-links {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 48px;
-    }
-    
-    .nav-links li {
-      position: relative;
-    }
-    
-    .nav-links a {
-      text-decoration: none;
-      font-family: 'League Spartan', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: #111;
-      padding: 8px 0;
-      transition: all 0.3s ease;
-      position: relative;
-      letter-spacing: 1.2px;
-    }
-    
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 2.5px;
-      background-color: #111;
-      transition: width 0.3s ease;
-    }
-    
-    .nav-links a:hover::before {
-      width: 100%;
-    }
-    
-    .hamburger {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: #111;
-    }
-    .user-area {
-      display: flex;
-      align-items: center;
-    }
-    .hamburger {
-      display: none;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    .user-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .user-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: #fff;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .dropdown-content.show {
-      display: block;
-    }
-    .dropdown-content a, .dropdown-content button {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .dropdown-content a:hover, .dropdown-content button:hover {
-      background-color: #f1f1f1;
-    }
-    .dropdown-email {
-      padding: 12px 16px;
-      color: #666;
-      font-size: 14px;
-      border-bottom: 1px solid #eee;
-      word-break: break-all;
-    }
-    .cart-container {
-      position: relative;
-      display: inline-block;
-      margin-left: 15px;
-    }
-    .cart-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .cart-count {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background-color: #ff4444;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
-      min-width: 14px;
-      text-align: center;
-    }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f5f7fa;
+        color: #2d2d2d;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
 
-    /* Cart Section Styles */
-    .cart-section {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .cart-section h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .cart-empty {
-      text-align: center;
-      font-size: 18px;
-      color: #666;
-    }
-    .cart-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    .cart-table th, .cart-table td {
-      padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    .cart-table th {
-      background-color: #f9f9f9;
-      font-weight: bold;
-    }
-    .cart-item {
-      display: flex;
-      align-items: center;
-    }
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      margin-right: 15px;
-      border-radius: 4px;
-    }
-    .cart-item-details {
-      flex: 1;
-    }
-    .cart-item-details h3 {
-      margin: 0;
-      font-size: 16px;
-    }
-    .cart-item-details p {
-      margin: 5px 0;
-      color: #666;
-      font-size: 14px;
-    }
-    .quantity-control {
-      display: flex;
-      align-items: center;
-    }
-    .quantity-control button {
-      background-color: #f1f1f1;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 4px;
-    }
-    .quantity-control button:hover {
-      background-color: #ddd;
-    }
-    .quantity-control span {
-      margin: 0 10px;
-      font-size: 16px;
-    }
-    .remove-btn {
-      background: none;
-      border: none;
-      color: #ff4444;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .cart-total {
-      text-align: right;
-      margin-top: 20px;
-    }
-    .cart-total p {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .checkout-btn {
-      background-color: #007bff;
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      text-transform: uppercase;
-    }
-    .checkout-btn:hover {
-      background-color: #0056b3;
-    }
-
-    /* FOOTER */
-    footer {
-      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-      backdrop-filter: blur(12px);
-      color: #fff;
-      padding: 60px 30px 20px;
-      font-family: 'Poppins', sans-serif;
-      position: relative;
-      z-index: 10;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .footer-content h3 {
-      font-size: 22px;
-      margin-bottom: 15px;
-      color: #ffffffdd;
-      font-weight: 700;
-    }
-    
-    .footer-content p,
-    .footer-content a {
-      color: #ddd;
-      font-size: 14px;
-      line-height: 1.6;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    
-    .footer-content a:hover {
-      color: #ffcb74;
-    }
-    
-    .footer-content ul {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .footer-content input[type="email"] {
-      padding: 10px 15px;
-      border-radius: 25px;
-      border: none;
-      outline: none;
-      width: 100%;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-      transition: background 0.3s ease;
-    }
-    
-    .footer-content input[type="email"]::placeholder {
-      color: #ccc;
-    }
-    
-    .footer-content button {
-      border: none;
-      background: #ffcb74;
-      color: #000;
-      padding: 10px 16px;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    
-    .footer-content button:hover {
-      background: #ffc350;
-    }
-    
-    .socials {
-      margin-top: 15px;
-    }
-    
-    .socials i {
-      font-size: 18px;
-      margin-right: 12px;
-      color: #fff;
-      transition: transform 0.3s ease, color 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .socials i:hover {
-      transform: scale(1.2);
-      color: #ffcb74;
-    }
-    
-    .footer-bottom {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 13px;
-      color: #bbb;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 20px;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
       .navbar {
-        flex-wrap: wrap;
-      }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        text-align: center;
-      }
-      .nav-links.active {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 60px;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        z-index: 1000;
+        transition: top 0.3s ease;
       }
+
+      .nav-logo {
+        font-family: "Anton", sans-serif;
+        font-size: 42px;
+        color: #111;
+        letter-spacing: 2px;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 48px;
+      }
+
       .nav-links li {
-        margin: 10px 0;
+        position: relative;
       }
+
+      .nav-links a {
+        text-decoration: none;
+        font-family: "League Spartan", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #111;
+        padding: 8px 0;
+        transition: all 0.3s ease;
+        position: relative;
+        letter-spacing: 1.2px;
+      }
+
+      .nav-links a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2.5px;
+        background-color: #111;
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::before {
+        width: 100%;
+      }
+
       .hamburger {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #111;
+      }
+
+      .user-area {
+        display: flex;
+        align-items: center;
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .user-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .user-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .dropdown-content.show {
         display: block;
       }
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-      .cart-table {
+
+      .dropdown-content a,
+      .dropdown-content button {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
         font-size: 14px;
       }
+
+      .dropdown-content a:hover,
+      .dropdown-content button:hover {
+        background-color: #f1f1f1;
+      }
+
+      .dropdown-email {
+        padding: 12px 16px;
+        color: #666;
+        font-size: 14px;
+        border-bottom: 1px solid #eee;
+        word-break: break-all;
+      }
+
+      .cart-container {
+        position: relative;
+        display: inline-block;
+        margin-left: 15px;
+      }
+
+      .cart-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        min-width: 14px;
+        text-align: center;
+      }
+
+      /* Cart Section Styles */
+      .cart-section {
+        max-width: 1100px;
+        margin: 60px auto;
+        padding: 0 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+      }
+
+      .cart-section:hover {
+        transform: translateY(-5px);
+      }
+
+      .cart-section h1 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 30px;
+        text-align: left;
+        border-left: 4px solid #007bff;
+        padding-left: 15px;
+      }
+
+      .cart-empty {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        padding: 40px 0;
+        background: #f9f9f9;
+        border-radius: 8px;
+      }
+
+      .cart-table {
+        width: 100;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-bottom: 30px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .cart-table th,
+      .cart-table td {
+        padding: 20px;
+        text-align: left;
+        border-bottom: 1px solid #e8ecef;
+        transition: background 0.2s ease;
+      }
+
+      .cart-table th {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+      }
+
+      .cart-table tr:hover {
+        background: #f8fafc;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+      }
+
       .cart-item img {
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-right: 20px;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        transition: transform 0.3s ease;
       }
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="nav-logo">PRASO</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="#">Quiz</a></li>
-      <li><a href="#">Contact</a></li>
-      <div id="user-area" class="user-area">
-        <div class="cart-container">
-          <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
-          <span class="cart-count" id="cartCount">0</span>
+
+      .cart-item img:hover {
+        transform: scale(1.05);
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .cart-item-details h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: #1a1a1a;
+      }
+
+      .cart-item-details p {
+        margin: 8px 0 0;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        background: #f1f3f5;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .quantity-control button {
+        background: transparent;
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #007bff;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .quantity-control button:hover {
+        background: #e9ecef;
+        color: #0056b3;
+      }
+
+      .quantity-control span {
+        margin: 0 15px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #1a1a1a;
+      }
+
+      .remove-btn {
+        background: none;
+        border: none;
+        color: #ff4d4f;
+        cursor: pointer;
+        font-size: 18px;
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+
+      .remove-btn:hover {
+        color: #d9363e;
+        transform: scale(1.1);
+      }
+
+      .coupon-section {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        gap: 10px;
+      }
+
+      .coupon-section input {
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        width: 220px;
+        background: #f9f9f9;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .coupon-section input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+      }
+
+      .coupon-section button {
+        background: #28a745;
+        color: #fff;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      .coupon-section button:hover {
+        background: #218838;
+        transform: translateY(-2px);
+      }
+
+      .coupon-section .coupon-error,
+      .coupon-section .coupon-success {
+        font-size: 13px;
+        margin-top: 8px;
+        width: 100%;
+        text-align: right;
+      }
+
+      .coupon-section .coupon-error {
+        color: #ff4d4f;
+      }
+
+      .coupon-section .coupon-success {
+        color: #28a745;
+      }
+
+      .cart-total {
+        text-align: right;
+        margin-top: 20px;
+        padding: 20px;
+        background: #f8fafc;
+        border-radius: 8px;
+      }
+
+      .cart-total p {
+        font-size: 16px;
+        font-weight: 500;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+      }
+
+      .cart-total p:last-of-type {
+        font-size: 20px;
+        font-weight: 600;
+        color: #007bff;
+      }
+
+      .checkout-btn {
+        background: #007bff;
+        color: #fff;
+        padding: 14px 40px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: background 0.3s ease, transform 0.2s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .checkout-btn:hover {
+        background: #0056b3;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+      }
+
+      footer {
+        background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        backdrop-filter: blur(12px);
+        color: #fff;
+        padding: 60px 30px 20px;
+        font-family: "Poppins", sans-serif;
+        position: relative;
+        z-index: 10;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-content h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #ffffffdd;
+        font-weight: 700;
+      }
+
+      .footer-content p,
+      .footer-content a {
+        color: #ddd;
+        font-size: 14px;
+        line-height: 1.6;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-content a:hover {
+        color: #ffcb74;
+      }
+
+      .footer-content ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-content input[type="email"] {
+        padding: 10px 15px;
+        border-radius: 25px;
+        border: none;
+        outline: none;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        transition: background 0.3s ease;
+      }
+
+      .footer-content input[type="email"]::placeholder {
+        color: #ccc;
+      }
+
+      .footer-content button {
+        border: none;
+        background: #ffcb74;
+        color: #000;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .footer-content button:hover {
+        background: #ffc350;
+      }
+
+      .socials {
+        margin-top: 15px;
+      }
+
+      .socials i {
+        font-size: 18px;
+        margin-right: 12px;
+        color: #fff;
+        transition: transform 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .socials i:hover {
+        transform: scale(1.2);
+        color: #ffcb74;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 13px;
+        color: #bbb;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar {
+          flex-wrap: wrap;
+        }
+        .nav-links {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          text-align: center;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+        .nav-links li {
+          margin: 10px 0;
+        }
+        .hamburger {
+          display: block;
+        }
+        .cart-section {
+          margin: 30px 15px;
+          padding: 15px;
+        }
+        .cart-section h1 {
+          font-size: 24px;
+          padding-left: 10px;
+        }
+        .cart-table {
+          font-size: 14px;
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+        .cart-table th,
+        .cart-table td {
+          padding: 15px 10px;
+        }
+        .cart-item img {
+          width: 80px;
+          height: 80px;
+        }
+        .coupon-section {
+          flex-direction: column;
+          align-items: flex-end;
+        }
+        .coupon-section input {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        .coupon-section button {
+          width: 100%;
+          padding: 12px;
+        }
+        .cart-total {
+          padding: 15px;
+        }
+        .checkout-btn {
+          width: 100%;
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .cart-section h1 {
+          font-size: 20px;
+        }
+        .cart-item img {
+          width: 60px;
+          height: 60px;
+        }
+        .cart-item-details h3 {
+          font-size: 16px;
+        }
+        .quantity-control button {
+          padding: 6px 12px;
+        }
+        .quantity-control span {
+          margin: 0 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">PRASO</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ourstory.html">Our Story</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="rewards.html">Rewards</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <div id="user-area" class="user-area">
+          <div class="cart-container">
+            <a href="cart.html"
+              ><i class="fas fa-shopping-cart cart-icon"></i
+            ></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
         </div>
-        
-      </div>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
-
-  <!-- Cart Section -->
-  <section class="cart-section">
-    <h1>Your Cart</h1>
-    <div id="cartContent"></div>
-    <div class="cart-total" id="cartTotal"></div>
-  </section>
-
- <!-- FOOTER -->
- <footer>
-  <div class="footer-content">
-    <div>
-      <h3>PRASO</h3>
-      <p>Elevate your style with Praso Clothing.</p>
-    </div>
-    <div>
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About</a></li>
       </ul>
-    </div>
-    <div>
-      <h3>Contact</h3>
-      <p>Email: support@prasoclothing.com</p>
-      <p>Phone: +1 (555) 123-4567</p>
-    </div>
-    <div>
-      <h3>Stay Updated</h3>
-      <form onsubmit="subscribeNewsletter(event)">
-        <input type="email" placeholder="Your email" required />
-        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-      </form>
-      <div class="socials">
-        <i class="fab fa-facebook-f"></i>
-        <i class="fab fa-instagram"></i>
-        <i class="fab fa-twitter"></i>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
       </div>
-    </div>
-  </div>
-  <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
-</footer>
+    </nav>
 
-  <script>
-    // Hamburger Menu Toggle
-    document.getElementById('hamburger').addEventListener('click', () => {
-      document.getElementById('navLinks').classList.toggle('active');
-    });
+    <!-- Cart Section -->
+    <section class="cart-section">
+      <h1>Your Cart</h1>
+      <div id="cartContent"></div>
+      <div class="coupon-section" id="couponSection">
+        <input type="text" id="couponInput" placeholder="Enter coupon code" />
+        <button onclick="applyCoupon()">Apply Coupon</button>
+        <div id="couponMessage"></div>
+      </div>
+      <div class="cart-total" id="cartTotal"></div>
+    </section>
 
-    // Cart Functionality
-    function getCart() {
-      return JSON.parse(localStorage.getItem('cart') || '[]');
-    }
+    <footer>
+      <div class="footer-content">
+        <div>
+          <h3>PRASO</h3>
+          <p>Elevate your style with Praso Clothing.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Email: support@prasoclothing.com</p>
+          <p>Phone: +1 (555) 123-4567</p>
+        </div>
+        <div>
+          <h3>Stay Updated</h3>
+          <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
+    </footer>
 
-    function saveCart(cart) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      renderCart();
-    }
+    <script>
+      // Hamburger Menu Toggle
+      document.getElementById("hamburger").addEventListener("click", () => {
+        document.getElementById("navLinks").classList.toggle("active");
+      });
 
-    function updateCartCount() {
-      const cart = getCart();
-      const count = cart.reduce((total, item) => total + item.quantity, 0);
-      document.getElementById('cartCount').textContent = count;
-    }
+      // Coupon Codes
+      const coupons = {
+        SAVE10: 0.1, // 10% off
+        SAVE20: 0.2, // 20% off
+        FLAT50: 50, // Flat ₹50 off (in INR)
+        FASHION15: 0.15,
+      };
 
-    function renderCart() {
-      const cart = getCart();
-      const cartContent = document.getElementById('cartContent');
-      const cartTotal = document.getElementById('cartTotal');
-      const usdToInr = 80;
-
-      if (cart.length === 0) {
-        cartContent.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
-        cartTotal.innerHTML = '';
-        return;
+      // Cart Functionality
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
       }
 
-      let total = 0;
-      cartContent.innerHTML = `
+      function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+
+      function updateCartCount() {
+        const cart = getCart();
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById("cartCount").textContent = count;
+      }
+
+      function applyCoupon() {
+        const couponInput = document
+          .getElementById("couponInput")
+          .value.toUpperCase();
+        const couponMessage = document.getElementById("couponMessage");
+
+        if (coupons[couponInput]) {
+          localStorage.setItem("appliedCoupon", couponInput);
+          couponMessage.innerHTML =
+            '<span class="coupon-success">Coupon applied successfully!</span>';
+          renderCart();
+        } else {
+          localStorage.removeItem("appliedCoupon");
+          couponMessage.innerHTML =
+            '<span class="coupon-error">Invalid coupon code.</span>';
+          renderCart();
+        }
+      }
+
+      function renderCart() {
+        const cart = getCart();
+        const cartContent = document.getElementById("cartContent");
+        const cartTotal = document.getElementById("cartTotal");
+        const usdToInr = 80;
+        const appliedCoupon = localStorage.getItem("appliedCoupon");
+
+        if (cart.length === 0) {
+          cartContent.innerHTML =
+            '<p class="cart-empty">Your cart is empty.</p>';
+          cartTotal.innerHTML = "";
+          document.getElementById("couponSection").style.display = "none";
+          return;
+        }
+
+        document.getElementById("couponSection").style.display = "block";
+
+        let total = 0;
+        cartContent.innerHTML = `
         <table class="cart-table">
           <thead>
             <tr>
@@ -517,10 +762,11 @@ body {
             </tr>
           </thead>
           <tbody>
-            ${cart.map((item, index) => {
-              const itemTotal = item.price * item.quantity;
-              total += itemTotal;
-              return `
+            ${cart
+              .map((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                return `
                 <tr>
                   <td>
                     <div class="cart-item">
@@ -530,7 +776,9 @@ body {
                       </div>
                     </div>
                   </td>
-                  <td>₹${Math.round(item.price * usdToInr).toLocaleString('en-IN')}</td>
+                  <td>₹${Math.round(item.price * usdToInr).toLocaleString(
+                    "en-IN"
+                  )}</td>
                   <td>${item.size}</td>
                   <td>
                     <div class="quantity-control">
@@ -539,69 +787,94 @@ body {
                       <button onclick="updateQuantity(${index}, 1)">+</button>
                     </div>
                   </td>
-                  <td>₹${Math.round(itemTotal * usdToInr).toLocaleString('en-IN')}</td>
+                  <td>₹${Math.round(itemTotal * usdToInr).toLocaleString(
+                    "en-IN"
+                  )}</td>
                   <td><button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button></td>
                 </tr>
               `;
-            }).join('')}
+              })
+              .join("")}
           </tbody>
         </table>
       `;
 
-      cartTotal.innerHTML = `
-        <p>Total: ₹${Math.round(total * usdToInr).toLocaleString('en-IN')}</p>
+        let discount = 0;
+        let finalTotal = total * usdToInr;
+
+        if (appliedCoupon && coupons[appliedCoupon]) {
+          if (appliedCoupon === "FLAT50") {
+            discount = coupons[appliedCoupon] * usdToInr;
+            finalTotal = Math.max(0, finalTotal - discount);
+          } else {
+            discount = total * usdToInr * coupons[appliedCoupon];
+            finalTotal = finalTotal - discount;
+          }
+        }
+
+        cartTotal.innerHTML = `
+        <p>Subtotal: ₹${Math.round(total * usdToInr).toLocaleString(
+          "en-IN"
+        )}</p>
+        ${
+          appliedCoupon && coupons[appliedCoupon]
+            ? `<p>Discount: -₹${Math.round(discount).toLocaleString(
+                "en-IN"
+              )} (${appliedCoupon})</p>`
+            : ""
+        }
+        <p>Total: ₹${Math.round(finalTotal).toLocaleString("en-IN")}</p>
         <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
       `;
-    }
+      }
 
-    function updateQuantity(index, change) {
-      const cart = getCart();
-      cart[index].quantity = Math.max(1, cart[index].quantity + change);
-      saveCart(cart);
-    }
+      function updateQuantity(index, change) {
+        const cart = getCart();
+        cart[index].quantity = Math.max(1, cart[index].quantity + change);
+        saveCart(cart);
+      }
 
-    function removeItem(index) {
-      const cart = getCart();
-      cart.splice(index, 1);
-      saveCart(cart);
-    }
+      function removeItem(index) {
+        const cart = getCart();
+        cart.splice(index, 1);
+        saveCart(cart);
+      }
 
-    function checkout() {
-      alert('Proceeding to checkout...');
-      // Implement checkout logic here (e.g., redirect to payment page)
-    }
+      function checkout() {
+        window.location.href = "payment.html";
+      }
 
-    // Initialize cart on page load
-    renderCart();
-    updateCartCount();
-  </script>
+      // Initialize cart on page load
+      renderCart();
+      updateCartCount();
+    </script>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import {
-      getAuth,
-      signOut,
-      onAuthStateChanged,
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
-      authDomain: "prasoclothing-ac3a3.firebaseapp.com",
-      projectId: "prasoclothing-ac3a3",
-      storageBucket: "prasoclothing-ac3a3.appspot.com",
-      messagingSenderId: "362254349990",
-      appId: "1:362254349990:web:b3f89bd304f3468e92e667",
-      measurementId: "G-ETY5MMFPPM",
-    };
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-    const userArea = document.getElementById("user-area");
+      const userArea = document.getElementById("user-area");
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userArea.innerHTML = `
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userArea.innerHTML = `
           <div class="user-dropdown">
             <i class="fas fa-user-circle user-icon"></i>
             <div class="dropdown-content" id="dropdownContent">
@@ -616,39 +889,39 @@ body {
             <span class="cart-count" id="cartCount">0</span>
           </div>
         `;
-        const userIcon = userArea.querySelector('.user-icon');
-        const dropdownContent = userArea.querySelector('.dropdown-content');
-        userIcon.addEventListener('click', () => {
-          dropdownContent.classList.toggle('show');
-        });
-        document.addEventListener('click', (event) => {
-          if (!userArea.contains(event.target)) {
-            dropdownContent.classList.remove('show');
-          }
-        });
-        updateCartCount();
-      } else {
-        userArea.innerHTML = `
+          const userIcon = userArea.querySelector(".user-icon");
+          const dropdownContent = userArea.querySelector(".dropdown-content");
+          userIcon.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
+          });
+          document.addEventListener("click", (event) => {
+            if (!userArea.contains(event.target)) {
+              dropdownContent.classList.remove("show");
+            }
+          });
+          updateCartCount();
+        } else {
+          userArea.innerHTML = `
           <a href="login.html"><i class="fas fa-user-circle"></i></a>
           <div class="cart-container">
             <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
             <span class="cart-count" id="cartCount">0</span>
           </div>
         `;
-        updateCartCount();
-      }
-    });
+          updateCartCount();
+        }
+      });
 
-    window.logout = function () {
-      signOut(auth)
-        .then(() => {
-          alert("Logged out successfully!");
-          location.reload();
-        })
-        .catch((error) => {
-          alert("Logout failed: " + error.message);
-        });
-    };
-  </script>
-</body>
+      window.logout = function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out successfully!");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+    </script>
+  </body>
 </html>

@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.13">
+  <diagram name="Page-1" id="vU9VYJMmFgRx_S7OkIf5">
+    <mxGraphModel dx="3496" dy="1932" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-1" value="Start" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="392" y="120" width="95" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-2" value="User Registration" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="348" y="224" width="182" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-3" value="Firebase Authentication" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="240" y="340" width="225" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-4" value="User Registered" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="372" y="623" width="172" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-5" value="User Login" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="487" y="740" width="135" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-6" value="Firebase Authentication" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="240" y="880" width="225" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-7" value="Login Successful?" style="rhombus;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="241" y="1195" width="176" height="176" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-8" value="Access Application" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="210" y="1444" width="192" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-9" value="Error: Invalid Credentials" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="452" y="1444" width="240" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-10" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-1" target="sv6AwSiEyRd-6u6O_aOr-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-11" value="Enter Name, Email, Password" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-2" target="sv6AwSiEyRd-6u6O_aOr-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-12" value="Create User" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-3" target="sv6AwSiEyRd-6u6O_aOr-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-13" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-4" target="sv6AwSiEyRd-6u6O_aOr-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-14" value="Enter Email, Password" style="curved=1;startArrow=none;endArrow=block;exitX=0.15;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-5" target="sv6AwSiEyRd-6u6O_aOr-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="329" y="861" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-15" value="Validate Credentials" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-6" target="sv6AwSiEyRd-6u6O_aOr-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-16" value="Yes" style="curved=1;startArrow=none;endArrow=block;exitX=0.41;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-7" target="sv6AwSiEyRd-6u6O_aOr-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="1407" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-17" value="No" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.97;entryX=0.31;entryY=0;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-7" target="sv6AwSiEyRd-6u6O_aOr-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="462" y="1407" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sv6AwSiEyRd-6u6O_aOr-18" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.53;exitY=0;entryX=0.97;entryY=1;rounded=0;" edge="1" parent="1" source="sv6AwSiEyRd-6u6O_aOr-9" target="sv6AwSiEyRd-6u6O_aOr-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="588" y="1407" />
+              <mxPoint x="588" y="861" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

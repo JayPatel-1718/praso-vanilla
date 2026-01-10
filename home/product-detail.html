@@ -1,352 +1,955 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Details</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="product-detail.css" />
-</head>
-<body>
-  <style>
-    .user-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .user-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: #fff;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .dropdown-content.show {
-      display: block;
-    }
-    .dropdown-content a, .dropdown-content button {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .dropdown-content a:hover, .dropdown-content button:hover {
-      background-color: #f1f1f1;
-    }
-    .dropdown-email {
-      padding: 12px 16px;
-      color: #666;
-      font-size: 14px;
-      border-bottom: 1px solid #eee;
-      word-break: break-all;
-    }
-    .cart-container {
-      position: relative;
-      display: inline-block;
-      margin-left: 15px;
-    }
-    .cart-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .cart-count {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background-color: #ff4444;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 12px;
-      min-width: 14px;
-      text-align: center;
-    }
-  </style>
-   <nav class="navbar">
-    <div class="nav-logo">PRASO</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="#">Quiz</a></li>
-      <li><a href="#">Contact</a></li>
-      <div id="user-area" class="user-area">
-        <div class="cart-container">
-          <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
-          <span class="cart-count" id="cartCount">0</span>
-        </div>
-      </div>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
-
-  <!-- Product Detail Section -->
-  <section class="product-detail-section" id="productDetailSection">
-    <div class="product-detail-container">
-      <div class="product-image">
-        <img src="" alt="Product Image" id="productImage" />
-      </div>
-      <div class="product-info">
-        <h1 id="productName"></h1>
-        <p class="long-description" id="productDescription"></p>
-        <div class="size-selector">
-          <label for="size">Select Size:</label>
-          <select id="sizeSelect" title="Select size">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-          </select>
-        </div>
-        <div class="price-and-cart">
-          <span class="product-price" id="productPrice"></span>
-          <button class="add-to-cart-btn" id="addToCartBtn">Add to Cart</button>
-        </div>
-        
-        <!-- Collapsible Description -->
-        <div class="collapsible-description">
-          <button class="collapsible-btn" id="descToggleBtn">
-             Description
-          </button>
-          <div class="collapsible-content" id="descContent">
-            <p>This is a premium clothing item designed for comfort and everyday wear. 100% Cotton, Regular Fit, Eco-Friendly Dyes. Machine wash cold with like colors. Do not bleach. Tumble dry low.</p>
-          </div>
-        </div>
-        
-        <div class="collapsible-features">
-          <button class="collapsible-btn" id="featuresToggleBtn">
-             Features
-          </button>
-          <div class="collapsible-content" id="featuresContent">
-            <ul>
-              <li>100% Cotton</li>
-              <li>Regular Fit</li>
-              <li>Eco-Friendly Dyes</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="collapsible-size-chart">
-          <button class="collapsible-btn" id="sizeChartToggleBtn">
-             Size Chart
-          </button>
-          <div class="collapsible-content" id="sizeChartContent">
-            <ul>
-              <li>S: 36” Chest</li>
-              <li>M: 38” Chest</li>
-              <li>L: 40” Chest</li>
-              <li>XL: 42” Chest</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="collapsible-shipping">
-          <button class="collapsible-btn" id="shippingToggleBtn">
-             Shipping Details
-          </button>
-          <div class="collapsible-content" id="shippingContent">
-            <p>Delivery in 5-7 business days. Free shipping on orders above ₹999.</p>
-          </div>
-        </div>
-        
-        <div class="collapsible-return-policies">
-          <button class="collapsible-btn" id="returnPoliciesToggleBtn">
-            Return Policies
-          </button>
-          <div class="collapsible-content" id="returnPoliciesContent">
-            <p>Easy 7-day return policy. Product must be unworn and with tags.</p>
-          </div>
-        </div>
-        
-        <div class="collapsible-care-guide">
-          <button class="collapsible-btn" id="careGuideToggleBtn">
-           Care Guide
-          </button>
-          <div class="collapsible-content" id="careGuideContent">
-            <p>Machine wash cold with like colors. Do not bleach. Tumble dry low.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Similar Products Section -->
-  <section class="similar-products-section">
-    <h2>Similar Products</h2>
-    <div class="similar-products-grid" id="similarProductsGrid"></div>
-  </section>
-
- <!-- FOOTER -->
- <footer>
-  <div class="footer-content">
-    <div>
-      <h3>PRASO</h3>
-      <p>Elevate your style with Praso Clothing.</p>
-    </div>
-    <div>
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3>Contact</h3>
-      <p>Email: support@prasoclothing.com</p>
-      <p>Phone: +1 (555) 123-4567</p>
-    </div>
-    <div>
-      <h3>Stay Updated</h3>
-      <form onsubmit="subscribeNewsletter(event)">
-        <input type="email" placeholder="Your email" required />
-        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-      </form>
-      <div class="socials">
-        <i class="fab fa-facebook-f"></i>
-        <i class="fab fa-instagram"></i>
-        <i class="fab fa-twitter"></i>
-      </div>
-    </div>
-  </div>
-  <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
-</footer>
-  <script>
-    // Toggle collapsible sections
-    document.querySelectorAll('.collapsible-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const content = button.nextElementSibling;
-        const isActive = content.classList.contains('show');
-        content.classList.toggle('show', !isActive);
-        button.classList.toggle('active', !isActive);
-        button.textContent = `${!isActive ? '' : ''} ${button.textContent.slice(2)}`;
-      });
-    });
-
-    // Cart functionality
-    function getCart() {
-      return JSON.parse(localStorage.getItem('cart') || '[]');
-    }
-
-    function saveCart(cart) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-    }
-
-    function updateCartCount() {
-      const cart = getCart();
-      const count = cart.reduce((total, item) => total + item.quantity, 0);
-      document.getElementById('cartCount').textContent = count;
-    }
-
-    // Product & Cart Scripts
-    const products = [
-      { id: 5, name: "PCMY'25", price: 19.99, image: "/assets/PCMY'25.jpg", category: 'T-Shirts', description: "A stylish t-shirt designed for comfort and elegance." },
-      { id: 6, name: 'Alfriceden', price: 24.99, image: '/assets/Alfriceden.jpg', category: 'T-Shirts', description: "Premium quality t-shirt with a unique design." },
-      { id: 7, name: 'Where The Space?', price: 24.99, image: '/assets/Where_the_space.jpg', category: 'T-Shirts', description: "Explore the universe with this space-themed t-shirt." },
-      { id: 8, name: 'ASTRA', price: 39.99, image: '/assets/ASTRA.jpg', category: 'Sweatshirt', description: "Cozy sweatshirt perfect for chilly evenings." },
-      { id: 9, name: 'Private', price: 44.99, image: '/assets/PRIVATE.jpg', category: 'Sweatshirt', description: "Luxurious sweatshirt with a sleek design." },
-      { id: 10, name: 'DGOTTO - X1', price: 49.99, image: '/assets/DGOTTO.jpg', category: 'Sweatshirt', description: "High-end sweatshirt for ultimate comfort." }
-    ];
-
-    const usdToInr = 80;
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = parseInt(urlParams.get('id'));
-    const selectedProduct = products.find(product => product.id === productId);
-
-    if (!selectedProduct) {
-      document.body.innerHTML = '<h1>Product not found!</h1>';
-    } else {
-      document.getElementById('productImage').src = selectedProduct.image;
-      document.getElementById('productName').textContent = selectedProduct.name;
-      document.getElementById('productDescription').textContent = selectedProduct.description;
-      document.getElementById('productPrice').textContent = `₹${Math.round(selectedProduct.price * usdToInr).toLocaleString('en-IN')}`;
-
-      const similarProducts = products.filter(p => p.category === selectedProduct.category && p.id !== selectedProduct.id).slice(0, 4);
-      const grid = document.getElementById("similarProductsGrid");
-      similarProducts.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'similar-product-card';
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="similar-product-image" />
-          <h3>${product.name}</h3>
-          <span class="similar-product-price">₹${Math.round(product.price * usdToInr).toLocaleString('en-IN')}</span>
-        `;
-        card.onclick = () => window.location.href = `product-detail.html?id=${product.id}`;
-        grid.appendChild(card);
-      });
-
-      // Add to cart functionality
-      document.getElementById("addToCartBtn").addEventListener("click", function () {
-        const size = document.getElementById("sizeSelect").value;
-        const cart = getCart();
-        const existingItem = cart.find(item => item.id === selectedProduct.id && item.size === size);
-        
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          cart.push({
-            id: selectedProduct.id,
-            name: selectedProduct.name,
-            price: selectedProduct.price,
-            image: selectedProduct.image,
-            size: size,
-            quantity: 1
-          });
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Poppins:wght@400;600&family=Anton&display=swap"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="product-detail.css" />
+    <style>
+      /* Existing Styles (unchanged) */
+      .user-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .user-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .dropdown-content.show {
+        display: block;
+      }
+      .dropdown-content a,
+      .dropdown-content button {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: "Quicksand", sans-serif;
+      }
+      .dropdown-content a:hover,
+      .dropdown-content button:hover {
+        background-color: #f1f1f1;
+      }
+      .dropdown-email {
+        padding: 12px 16px;
+        color: #666;
+        font-size: 14px;
+        border-bottom: 1px solid #eee;
+        word-break: break-all;
+        font-family: "Quicksand", sans-serif;
+      }
+      .cart-container {
+        position: relative;
+        display: inline-block;
+        margin-left: 15px;
+      }
+      .cart-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+      }
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        min-width: 14px;
+        text-align: center;
+        font-family: "Quicksand", sans-serif;
+      }
+      .limited-stock-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: linear-gradient(45deg, #ff69b4, #c71585);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 600;
+        z-index: 1;
+      }
+      .trending-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: linear-gradient(45deg, #ff8c00, #ff4444);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 600;
+        z-index: 1;
+      }
+      .product-image {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .carousel {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+      .carousel-images {
+        display: flex;
+        transition: transform 0.3s ease;
+      }
+      .carousel-images img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        z-index: 2;
+      }
+      .carousel-arrow.left {
+        left: 10px;
+      }
+      .carousel-arrow.right {
+        right: 10px;
+      }
+      .carousel-arrow:hover {
+        background: rgba(0, 0, 0, 0.7);
+      }
+      /* Reviews Section */
+      .reviews-section {
+        padding: 2rem 1.5rem;
+        background: #f4f4f7;
+        text-align: center;
+      }
+      .reviews-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #111;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+      }
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .review-card {
+        background: #fff;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+      .review-card .rating {
+        color: #f1c40f;
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+      }
+      .review-card .reviewer {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #333;
+        margin-bottom: 0.2rem;
+      }
+      .review-card .date {
+        font-size: 0.75rem;
+        color: #888;
+        margin-bottom: 0.5rem;
+      }
+      .review-card p {
+        font-size: 0.85rem;
+        color: #555;
+        line-height: 1.4;
+      }
+      /* Leave a Review Form */
+      .leave-review {
+        max-width: 400px;
+        margin: 1.5rem auto;
+        background: linear-gradient(135deg, #ffffff, #f9f9f9);
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+        position: relative;
+      }
+      .leave-review h3 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        color: #111;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+      }
+      .leave-review .star-rating {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 0.8rem;
+        justify-content: center;
+      }
+      .leave-review .star-rating input {
+        display: none;
+      }
+      .leave-review .star-rating label {
+        font-size: 1.2rem;
+        color: #ddd;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+      }
+      .leave-review .star-rating label:hover,
+      .leave-review .star-rating input:checked ~ label {
+        color: #f1c40f;
+        transform: scale(1.2) rotate(10deg);
+      }
+      .leave-review input[type="text"],
+      .leave-review textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-family: "Poppins", sans-serif;
+        color: #333;
+        background: #fff;
+      }
+      .leave-review textarea {
+        height: 80px;
+        resize: vertical;
+      }
+      .leave-review button {
+        padding: 8px 16px;
+        background: #111;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s ease;
+      }
+      .leave-review button::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s ease, height 0.4s ease;
+      }
+      .leave-review button:hover::before {
+        width: 200px;
+        height: 200px;
+      }
+      .leave-review button:hover {
+        background: #222;
+      }
+      @media (max-width: 768px) {
+        .reviews-section {
+          padding: 1.5rem 1rem;
         }
-        
-        saveCart(cart);
-        alert('Product added to cart!');
-        window.location.href = "";
+        .reviews-grid {
+          grid-template-columns: 1fr;
+        }
+        .leave-review {
+          max-width: 100%;
+          padding: 0.8rem;
+        }
+        .leave-review h3 {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Toast Notification Styles */
+      .toast-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        color: #333;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        font-family: "Quicksand", sans-serif;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 2000;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .toast-notification.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .toast-notification .toast-message {
+        flex-grow: 1;
+      }
+      .toast-notification .toast-link {
+        color: #ff69b4;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .toast-notification .toast-link:hover {
+        text-decoration: underline;
+      }
+      .toast-notification .toast-close {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: #666;
+        cursor: pointer;
+        padding: 0 5px;
+      }
+      .toast-notification .toast-close:hover {
+        color: #ff69b4;
+      }
+      @media (max-width: 768px) {
+        .toast-notification {
+          top: 10px;
+          right: 10px;
+          padding: 10px 15px;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toastNotification">
+      <span class="toast-message" id="toastMessage"></span>
+      <a href="cart.html" class="toast-link">View Cart</a>
+      <button class="toast-close" id="toastClose">&times;</button>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-logo">PRASO</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="#">Quiz</a></li>
+        <li><a href="#">Contact</a></li>
+        <div id="user-area" class="user-area">
+          <div class="cart-container">
+            <a href="cart.html"
+              ><i class="fas fa-shopping-cart cart-icon"></i
+            ></a>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+        </div>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section" id="productDetailSection">
+      <div class="product-detail-container">
+        <div class="product-image">
+          <div class="carousel" id="productCarousel">
+            <div class="carousel-images" id="carouselImages"></div>
+            <button class="carousel-arrow left" id="prevArrow">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-arrow right" id="nextArrow">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h1 id="productName"></h1>
+          <p class="long-description" id="productDescription"></p>
+          <div class="size-selector">
+            <label for="size">Select Size:</label>
+            <select id="sizeSelect" title="Select size">
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+            </select>
+          </div>
+          <div class="price-and-cart">
+            <span class="product-price" id="productPrice"></span>
+            <button class="add-to-cart-btn" id="addToCartBtn">
+              Add to Cart
+            </button>
+          </div>
+
+          <!-- Collapsible Description -->
+          <div class="collapsible-description">
+            <button class="collapsible-btn" id="descToggleBtn">
+              Description
+            </button>
+            <div class="collapsible-content" id="descContent">
+              <p>
+                This is a premium clothing item designed for comfort and
+                everyday wear. 100% Cotton, Regular Fit, Eco-Friendly Dyes.
+                Machine wash cold with like colors. Do not bleach. Tumble dry
+                low.
+              </p>
+            </div>
+          </div>
+
+          <div class="collapsible-features">
+            <button class="collapsible-btn" id="featuresToggleBtn">
+              Features
+            </button>
+            <div class="collapsible-content" id="featuresContent">
+              <ul>
+                <li>100% Cotton</li>
+                <li>Regular Fit</li>
+                <li>Eco-Friendly Dyes</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="collapsible-size-chart">
+            <button class="collapsible-btn" id="sizeChartToggleBtn">
+              Size Chart
+            </button>
+            <div class="collapsible-content" id="sizeChartContent">
+              <ul>
+                <li>S: 36” Chest</li>
+                <li>M: 38” Chest</li>
+                <li>L: 40” Chest</li>
+                <li>XL: 42” Chest</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="collapsible-shipping">
+            <button class="collapsible-btn" id="shippingToggleBtn">
+              Shipping Details
+            </button>
+            <div class="collapsible-content" id="shippingContent">
+              <p>
+                Delivery in 5-7 business days. Free shipping on orders above
+                ₹999.
+              </p>
+            </div>
+          </div>
+
+          <div class="collapsible-return-policies">
+            <button class="collapsible-btn" id="returnPoliciesToggleBtn">
+              Return Policies
+            </button>
+            <div class="collapsible-content" id="returnPoliciesContent">
+              <p>
+                Easy 7-day return policy. Product must be unworn and with tags.
+              </p>
+            </div>
+          </div>
+
+          <div class="collapsible-care-guide">
+            <button class="collapsible-btn" id="careGuideToggleBtn">
+              Care Guide
+            </button>
+            <div class="collapsible-content" id="careGuideContent">
+              <p>
+                Machine wash cold with like colors. Do not bleach. Tumble dry
+                low.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+      <h2>Customer Reviews</h2>
+      <div class="leave-review">
+        <h3>Write Your Review</h3>
+        <form>
+          <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5" required />
+            <label for="star5" class="fas fa-star"></label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4" class="fas fa-star"></label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3" class="fas fa-star"></label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2" class="fas fa-star"></label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1" class="fas fa-star"></label>
+          </div>
+          <input type="text" name="name" placeholder="Your Name" required />
+          <textarea
+            name="review"
+            placeholder="Share your thoughts..."
+            required
+          ></textarea>
+          <button type="submit">Post Review</button>
+        </form>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="reviewer">Amit S.</div>
+          <div class="date">Apr 15, 2025</div>
+          <p>Super soft fabric and perfect fit! Got tons of compliments.</p>
+        </div>
+        <div class="review-card">
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <div class="reviewer">Priya M.</div>
+          <div class="date">Mar 28, 2025</div>
+          <p>Great quality and fast shipping. More colors, please!</p>
+        </div>
+        <div class="review-card">
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="reviewer">Rahul V.</div>
+          <div class="date">Apr 2, 2025</div>
+          <p>Cozy and stylish sweatshirt. Love the eco-friendly vibe!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Products Section -->
+    <section class="similar-products-section">
+      <h2>Similar Products</h2>
+      <div class="similar-products-grid" id="similarProductsGrid"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <h3>PRASO</h3>
+          <p>Elevate your style with Praso Clothing.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="our-story.html">Our Story</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Email: contact@prasoclothing.com</p>
+          <p>Phone: +91 9313619495</p>
+        </div>
+        <div>
+          <h3>Stay Updated</h3>
+          <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2025 Praso Clothing. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Toast Notification Logic
+      function showToast(message, duration = 3000) {
+        const toast = document.getElementById("toastNotification");
+        const toastMessage = document.getElementById("toastMessage");
+        toastMessage.textContent = message;
+        toast.classList.add("show");
+
+        // Auto-hide after duration
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, duration);
+
+        // Close button
+        document.getElementById("toastClose").onclick = () => {
+          toast.classList.remove("show");
+        };
+      }
+
+      // Toggle collapsible sections
+      document.querySelectorAll(".collapsible-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const content = button.nextElementSibling;
+          const isActive = content.classList.contains("show");
+          content.classList.toggle("show", !isActive);
+          button.classList.toggle("active", !isActive);
+          button.textContent = `${
+            !isActive ? "" : ""
+          } ${button.textContent.slice(2)}`;
+        });
       });
-    }
 
-    // Initialize cart count on page load
-    updateCartCount();
-  </script>
+      // Cart functionality
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
+      }
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import {
-      getAuth,
-      signOut,
-      onAuthStateChanged,
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+      }
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
-      authDomain: "prasoclothing-ac3a3.firebaseapp.com",
-      projectId: "prasoclothing-ac3a3",
-      storageBucket: "prasoclothing-ac3a3.appspot.com",
-      messagingSenderId: "362254349990",
-      appId: "1:362254349990:web:b3f89bd304f3468e92e667",
-      measurementId: "G-ETY5MMFPPM",
-    };
+      function updateCartCount() {
+        const cart = getCart();
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById("cartCount").textContent = count;
+      }
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+      // Product & Cart Scripts
+      const products = [
+        {
+          id: 5,
+          name: "PCMY'25",
+          price: 19.99,
+          images: ["/assets/PCMY'25.jpg"],
+          category: "T-Shirts",
+          description: "A stylish t-shirt designed for comfort and elegance.",
+          limitedStock: true,
+          trending: true,
+        },
+        {
+          id: 6,
+          name: "Alfriceden",
+          price: 24.99,
+          images: ["/assets/Alfriceden.jpg"],
+          category: "T-Shirts",
+          description: "Premium quality t-shirt with a unique design.",
+          limitedStock: false,
+          trending: false,
+        },
+        {
+          id: 7,
+          name: "Where The Space?",
+          price: 24.99,
+          images: ["/assets/Where_the_space.jpg"],
+          category: "T-Shirts",
+          description: "Explore the universe with this space-themed t-shirt.",
+          limitedStock: true,
+          trending: false,
+        },
+        {
+          id: 8,
+          name: "ASTRA",
+          price: 39.99,
+          images: ["/assets/ASTRA.jpg"],
+          category: "Sweatshirt",
+          description: "Cozy sweatshirt perfect for chilly evenings.",
+          limitedStock: false,
+          trending: true,
+        },
+        {
+          id: 9,
+          name: "Private",
+          price: 44.99,
+          images: ["/assets/PRIVATE.jpg"],
+          category: "Sweatshirt",
+          description: "Luxurious sweatshirt with a sleek design.",
+          limitedStock: true,
+          trending: false,
+        },
+        {
+          id: 10,
+          name: "DGOTTO - X1",
+          price: 49.99,
+          images: ["/assets/DGOTTO.jpg"],
+          category: "Sweatshirt",
+          description: "High-end sweatshirt for ultimate comfort.",
+          limitedStock: false,
+          trending: false,
+        },
+        {
+          id: 30,
+          name: "Look In Mah Eyes",
+          price: 49.99,
+          images: ["/assets/basic-1_back.png"],
+          category: "Basics",
+          description: "High-end sweatshirt for ultimate comfort.",
+          limitedStock: false,
+          trending: true,
+        },
+        {
+          id: 31,
+          name: "The Weekend",
+          price: 49.99,
+          images: ["/assets/basic-2_back.png"],
+          category: "Basics",
+          description: "High-end sweatshirt for ultimate comfort.",
+          limitedStock: true,
+          trending: false,
+        },
+        {
+          id: 32,
+          name: "Give Yourself time",
+          price: 49.99,
+          images: ["/assets/basic-3_back.png"],
+          category: "Basics",
+          description: "High-end sweatshirt for ultimate comfort.",
+          limitedStock: false,
+          trending: false,
+        },
+        {
+          id: 11,
+          name: "Happy Bear",
+          price: 12.0,
+          images: ["/assets/a.png"],
+          category: "T-Shirts",
+          description: "Premium quality t-shirt with a unique design.",
+          limitedStock: false,
+          trending: false,
+        },
+        {
+          id: 12,
+          name: "Cappy-Bara",
+          price: 12.0,
+          images: ["/assets/b.png"],
+          category: "T-Shirts",
+          description: "Premium quality t-shirt with a unique design.",
+          limitedStock: false,
+          trending: false,
+        },
+      ];
 
-    const userArea = document.getElementById("user-area");
+      const usdToInr = 80;
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = parseInt(urlParams.get("id"));
+      const selectedProduct = products.find(
+        (product) => product.id === productId
+      );
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userArea.innerHTML = `
+      if (!selectedProduct) {
+        document.body.innerHTML = "<h1>Product not found!</h1>";
+      } else {
+        // Render carousel images
+        const carouselImages = document.getElementById("carouselImages");
+        carouselImages.innerHTML = selectedProduct.images
+          .map(
+            (img, index) => `
+          <div style="position: relative;">
+            ${
+              index === 0 && selectedProduct.limitedStock
+                ? '<span class="limited-stock-badge">Limited Stock Left</span>'
+                : ""
+            }
+            ${
+              index === 0 && selectedProduct.trending
+                ? '<span class="trending-badge">Trending</span>'
+                : ""
+            }
+            <img src="${img}" alt="${selectedProduct.name}" />
+          </div>
+        `
+          )
+          .join("");
+        document.getElementById("productName").textContent =
+          selectedProduct.name;
+        document.getElementById("productDescription").textContent =
+          selectedProduct.description;
+        document.getElementById("productPrice").textContent = `₹${Math.round(
+          selectedProduct.price * usdToInr
+        ).toLocaleString("en-IN")}`;
+
+        // Carousel functionality
+        let currentIndex = 0;
+        const images = carouselImages.querySelectorAll("img");
+        const totalImages = images.length;
+
+        function updateCarousel() {
+          carouselImages.style.transform = `translateX(-${
+            currentIndex * 100
+          }%)`;
+        }
+
+        document.getElementById("prevArrow").addEventListener("click", () => {
+          currentIndex = currentIndex > 0 ? currentIndex - 1 : totalImages - 1;
+          updateCarousel();
+        });
+
+        document.getElementById("nextArrow").addEventListener("click", () => {
+          currentIndex = currentIndex < totalImages - 1 ? currentIndex + 1 : 0;
+          updateCarousel();
+        });
+
+        // Render similar products
+        const similarProducts = products
+          .filter(
+            (p) =>
+              p.category === selectedProduct.category &&
+              p.id !== selectedProduct.id
+          )
+          .slice(0, 4);
+        const grid = document.getElementById("similarProductsGrid");
+        similarProducts.forEach((product) => {
+          const card = document.createElement("div");
+          card.className = "similar-product-card";
+          card.innerHTML = `
+          <img src="${product.images[0]}" alt="${
+            product.name
+          }" class="similar-product-image" />
+          <h3>${product.name}</h3>
+          <span class="similar-product-price">₹${Math.round(
+            product.price * usdToInr
+          ).toLocaleString("en-IN")}</span>
+        `;
+          card.onclick = () =>
+            (window.location.href = `product-detail.html?id=${product.id}`);
+          grid.appendChild(card);
+        });
+
+        // Add to cart functionality
+        document
+          .getElementById("addToCartBtn")
+          .addEventListener("click", function () {
+            const size = document.getElementById("sizeSelect").value;
+            const cart = getCart();
+            const existingItem = cart.find(
+              (item) => item.id === selectedProduct.id && item.size === size
+            );
+
+            if (existingItem) {
+              existingItem.quantity += 1;
+            } else {
+              cart.push({
+                id: selectedProduct.id,
+                name: selectedProduct.name,
+                price: selectedProduct.price,
+                image: selectedProduct.images[0],
+                size: size,
+                quantity: 1,
+              });
+            }
+
+            saveCart(cart);
+            showToast("Product added to cart!");
+          });
+      }
+
+      // Initialize cart count on page load
+      updateCartCount();
+
+      // Hamburger toggle
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+
+      // Scroll hide/show navbar
+      const navbar = document.querySelector(".navbar");
+      let lastScrollTop = 0;
+      window.addEventListener("scroll", () => {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        navbar.style.top = scrollTop > lastScrollTop ? "-100px" : "0";
+        lastScrollTop = scrollTop;
+      });
+
+      // Newsletter Placeholder
+      function subscribeNewsletter(event) {
+        event.preventDefault();
+        alert("Subscribed successfully!");
+      }
+    </script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      const userArea = document.getElementById("user-area");
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userArea.innerHTML = `
           <div class="user-dropdown">
             <i class="fas fa-user-circle user-icon"></i>
             <div class="dropdown-content" id="dropdownContent">
@@ -361,43 +964,39 @@
             <span class="cart-count" id="cartCount">0</span>
           </div>
         `;
-        // Add event listener for dropdown toggle
-        const userIcon = userArea.querySelector('.user-icon');
-        const dropdownContent = userArea.querySelector('.dropdown-content');
-        userIcon.addEventListener('click', () => {
-          dropdownContent.classList.toggle('show');
-        });
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (event) => {
-          if (!userArea.contains(event.target)) {
-            dropdownContent.classList.remove('show');
-          }
-        });
-        // Update cart count after user area is rendered
-        updateCartCount();
-      } else {
-        userArea.innerHTML = `
+          const userIcon = userArea.querySelector(".user-icon");
+          const dropdownContent = userArea.querySelector(".dropdown-content");
+          userIcon.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
+          });
+          document.addEventListener("click", (event) => {
+            if (!userArea.contains(event.target)) {
+              dropdownContent.classList.remove("show");
+            }
+          });
+          updateCartCount();
+        } else {
+          userArea.innerHTML = `
           <a href="login.html"><i class="fas fa-user-circle"></i></a>
           <div class="cart-container">
             <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
             <span class="cart-count" id="cartCount">0</span>
           </div>
         `;
-        // Update cart count after user area is rendered
-        updateCartCount();
-      }
-    });
+          updateCartCount();
+        }
+      });
 
-    window.logout = function () {
-      signOut(auth)
-        .then(() => {
-          alert("Logged out successfully!");
-          location.reload();
-        })
-        .catch((error) => {
-          alert("Logout failed: " + error.message);
-        });
-    };
-  </script>
-</body>
+      window.logout = function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out successfully!");
+            location.reload();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      };
+    </script>
+  </body>
 </html>

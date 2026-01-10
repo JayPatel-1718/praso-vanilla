@@ -1,5 +1,5 @@
 /* RESET & BASE */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -7,13 +7,236 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: #f0f0f4;
   color: #222;
   overflow-x: hidden;
   line-height: 1.6;
 }
 /* ========== CART ICON & BADGE ========== */
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.user-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.dropdown-content.show {
+  display: block;
+}
+.dropdown-content a,
+.dropdown-content button {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+.dropdown-email {
+  padding: 12px 16px;
+  color: #666;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  word-break: break-all;
+}
+.cart-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+}
+.cart-icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  min-width: 14px;
+  text-align: center;
+}
+/* Countdown Section Styles */
+.countdown-section {
+  background: linear-gradient(135deg, #ffccd5, #e6e6fa);
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.countdown-container {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+.tshirt-image {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+.tshirt-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: float 3s ease-in-out infinite;
+}
+.countdown-content {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+.countdown-heading {
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  color: #c71585;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in;
+}
+.countdown-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  font-family: "Quicksand", sans-serif;
+}
+.time-box {
+  text-align: center;
+}
+.time-box label {
+  color: #ff69b4;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: block;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.flip-card {
+  position: relative;
+  width: 80px;
+  height: 100px;
+  perspective: 1000px;
+}
+.card-face {
+  background: #fff;
+  color: #c71585;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 100px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.7s ease;
+  border: 2px solid #ff69b4;
+}
+.card-front {
+  z-index: 2;
+  transform: rotateX(0deg);
+}
+.card-back {
+  transform: rotateX(180deg);
+}
+.flip .card-front {
+  animation: flipTop 0.7s ease forwards;
+}
+.flip .card-back {
+  animation: flipBottom 0.7s ease forwards;
+}
+@keyframes flipTop {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-180deg);
+  }
+}
+@keyframes flipBottom {
+  0% {
+    transform: rotateX(180deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+/* Responsive Countdown */
+@media (max-width: 768px) {
+  .countdown-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .countdown-heading {
+    font-size: 1.8rem;
+  }
+  .flip-card {
+    width: 60px;
+    height: 80px;
+  }
+  .card-face {
+    font-size: 2rem;
+    line-height: 80px;
+  }
+  .tshirt-image img {
+    max-width: 80%;
+  }
+}
+
 .cart-icon {
   position: relative;
   display: flex;
@@ -48,7 +271,7 @@ body {
 }
 
 .cart-section h1 {
-  font-family: 'Anton', sans-serif;
+  font-family: "Anton", sans-serif;
   font-size: 36px;
   color: #111;
   margin-bottom: 30px;
@@ -66,7 +289,7 @@ body {
   background: white;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .cart-item img {
@@ -189,7 +412,7 @@ body {
   border-radius: 50%;
   cursor: pointer;
   z-index: 999;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .chat-icon i {
@@ -205,7 +428,7 @@ body {
   max-height: 400px;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
   display: none;
   flex-direction: column;
   overflow: hidden;
@@ -290,12 +513,18 @@ body {
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 /* NAVBAR */
 /* Import fancy fonts (optional: add to HTML head) */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@600&family=Poppins:wght@400;500;600&display=swap");
 
 .navbar {
   display: flex;
@@ -313,7 +542,7 @@ body {
 }
 
 .nav-logo {
-  font-family: 'Anton', sans-serif;
+  font-family: "Anton", sans-serif;
   font-size: 42px;
   color: #111;
   letter-spacing: 2px;
@@ -332,7 +561,7 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: #111;
@@ -343,7 +572,7 @@ body {
 }
 
 .nav-links a::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -432,16 +661,18 @@ body {
   .nav-links a {
     font-size: 20px;
   }
-}.user-icon, .user-profile {
+}
+.user-icon,
+.user-profile {
   position: relative;
   cursor: pointer;
-  color: white;
+  color: rgb(19, 19, 19);
   font-weight: 600;
 }
 
 .user-profile span {
   padding: 8px 14px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
 }
 
@@ -456,7 +687,7 @@ body {
   display: none;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .user-profile:hover .dropdown {
@@ -543,7 +774,7 @@ body {
 }
 
 .hero-text h1 {
-  font-family: 'League Spartan', sans-serif;
+  font-family: "League Spartan", sans-serif;
   font-size: 56px;
   font-weight: 700;
   margin-bottom: 24px;
@@ -613,7 +844,7 @@ body {
   margin-bottom: 20px;
   font-size: 14px;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 .girly-btn {
   background: linear-gradient(135deg, #ff69b4, #ffb6c1);
@@ -626,7 +857,7 @@ body {
   cursor: pointer;
   box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
   transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .girly-btn:hover {
@@ -643,13 +874,30 @@ body {
   z-index: 0;
 }
 
-.emoji1 { top: 10%; left: 5%; animation-delay: 0s; }
-.emoji2 { top: 30%; right: 10%; animation-delay: 1.5s; }
-.emoji3 { bottom: 20%; left: 15%; animation-delay: 3s; }
-.emoji4 { bottom: 10%; right: 5%; animation-delay: 4.5s; }
+.emoji1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+.emoji2 {
+  top: 30%;
+  right: 10%;
+  animation-delay: 1.5s;
+}
+.emoji3 {
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 3s;
+}
+.emoji4 {
+  bottom: 10%;
+  right: 5%;
+  animation-delay: 4.5s;
+}
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
@@ -676,8 +924,6 @@ body {
     justify-content: center;
   }
 }
-
-
 
 .quiz-entry-section {
   display: flex;
@@ -709,7 +955,7 @@ body {
   font-size: 40px;
   font-weight: 700;
   margin-bottom: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .quiz-entry-card p {
@@ -759,7 +1005,7 @@ body {
 .featured h2 {
   font-size: 48px;
   font-weight: 800;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-bottom: 10px;
 }
 
@@ -801,8 +1047,13 @@ body {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 /* PRODUCT GRID */
@@ -839,8 +1090,6 @@ body {
   border-radius: 16px;
   margin-bottom: 15px;
 }
-
-
 
 /* PRICE SECTION */
 .price {
@@ -900,9 +1149,9 @@ body {
   }
 }
 
-
 /* Floating Emojis */
-.floating-emoji, .floating-emoji2 {
+.floating-emoji,
+.floating-emoji2 {
   position: absolute;
   font-size: 30px;
   opacity: 0.4;
@@ -921,9 +1170,15 @@ body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(10deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 @keyframes fadeIn {
@@ -944,7 +1199,7 @@ body {
   font-size: 44px;
   font-weight: 800;
   margin-bottom: 50px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .features-grid {
@@ -961,10 +1216,10 @@ body {
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px 30px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .feature:hover {
@@ -980,7 +1235,7 @@ body {
   background: #ffffff70;
   padding: 15px;
   border-radius: 50%;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -1008,9 +1263,15 @@ body {
 }
 
 @keyframes sparkle {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(10deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(10deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
 }
 
 /* FOOTER */
@@ -1019,7 +1280,7 @@ footer {
   backdrop-filter: blur(12px);
   color: #fff;
   padding: 60px 30px 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   position: relative;
   z-index: 10;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1113,24 +1374,42 @@ footer {
   margin-top: 40px;
   font-size: 13px;
   color: #bbb;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 20px;
 }
 
 /* ANIMATIONS */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .toast {
   position: fixed;
@@ -1169,7 +1448,7 @@ footer {
   border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.4s ease, fadeOut 0.4s ease 2.6s forwards;
   display: flex;
   align-items: center;
@@ -1186,12 +1465,21 @@ footer {
 
 /* Toast Animation */
 @keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  to { opacity: 0; transform: translateX(100%); }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
 }
 .cart-icon {
   position: relative;

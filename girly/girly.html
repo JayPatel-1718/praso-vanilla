@@ -1,296 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Girl-Verse | PRASO</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="/girly/css/girly.css" />
-  <style>
-    .user-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .user-icon {
-      cursor: pointer;
-      font-size: 24px;
-      color: #333;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: #fff;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .dropdown-content.show {
-      display: block;
-    }
-    .dropdown-content a, .dropdown-content button {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .dropdown-content a:hover, .dropdown-content button:hover {
-      background-color: #f1f1f1;
-    }
-    .dropdown-email {
-      padding: 12px 16px;
-      color: #666;
-      font-size: 14px;
-      border-bottom: 1px solid #eee;
-      word-break: break-all;
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="nav-logo">PRASO</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/home/index.html">Home</a></li>
-      <li><a href="girl-shop.html">Shop</a></li>
-      <li><a href="#">Quiz</a></li>
-      <li><a href="#">Contact</a></li>
-      <div id="user-area" class="user-area">
-        <!-- User area will be dynamically updated -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Girl-Verse | PRASO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/girly/css/girly.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">PRASO</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/home/index.html">Home</a></li>
+        <li><a href="girl-shop.html">Shop</a></li>
+        <li><a href="#">Quiz</a></li>
+        <li><a href="#">Contact</a></li>
+        <div id="user-area" class="user-area">
+          <!-- User area will be dynamically updated -->
+        </div>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
       </div>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
-  <!-- Add this in your <head> -->
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    </nav>
 
-<section class="girly-hero-slider">
-  <div class="slide active" id="softgirl">
-    <div class="hero-card">
-      <h1>Welcome to the Girl-Verse 💅</h1>
-      <p class="vibe">🩰 Soft Girl</p>
-      <button class="girly-btn">Design Your Own Look ✨</button>
-    </div>
-  </div>
-  <div class="slide" id="grungebaddie">
-    <div class="hero-card">
-      <h1>Welcome to the Girl-Verse 💅</h1>
-      <p class="vibe">🖤 Grunge Baddie</p>
-      <button class="girly-btn">Design Your Own Look ✨</button>
-    </div>
-  </div>
-  <div class="slide" id="bossbabe">
-    <div class="hero-card">
-      <h1>Welcome to the Girl-Verse 💅</h1>
-      <p class="vibe">💼 Boss Babe</p>
-      <button class="girly-btn">Design Your Own Look ✨</button>
-    </div>
-  </div>
-</section>
-
-<section class="countdown-section">
-  <div class="countdown-container">
-    <div class="tshirt-image">
-      <img src="/assets/question-mark.jpg" alt="Stylish T-Shirt" />
-    </div>
-    <div class="countdown-content">
-      <h1 class="countdown-heading">Fits That Slay On Their Way🩰</h1>
-      <div class="countdown-wrapper">
-        <div class="time-box" id="days">
-          <label>Days</label>
-          <div class="flip-card">
-            <div class="card-face card-front">00</div>
-            <div class="card-face card-back">00</div>
-          </div>
-        </div>
-        <div class="time-box" id="hours">
-          <label>Hours</label>
-          <div class="flip-card">
-            <div class="card-face card-front">00</div>
-            <div class="card-face card-back">00</div>
-          </div>
-        </div>
-        <div class="time-box" id="minutes">
-          <label>Minutes</label>
-          <div class="flip-card">
-            <div class="card-face card-front">00</div>
-            <div class="card-face card-back">00</div>
-          </div>
-        </div>
-        <div class="time-box" id="seconds">
-          <label>Seconds</label>
-          <div class="flip-card">
-            <div class="card-face card-front">00</div>
-            <div class="card-face card-back">00</div>
-          </div>
+    <section class="girly-hero-slider">
+      <div class="slide active" id="softgirl">
+        <div class="hero-card">
+          <h1>Soft Girl Elegance</h1>
+          <p class="vibe">Embrace delicate pastels and cozy vibes</p>
+          <button
+            class="girly-btn"
+            onclick="window.location.href='girl-shop.html'"
+          >
+            Shop Soft Girl
+          </button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="moodboard-section">
-  
-  <div class="container">
-    <div class="floating-emoji emoji1">🧢</div>
-    <div class="floating-emoji emoji2">✨</div>
-    <div class="floating-emoji emoji3">💥</div>
-    <div class="floating-emoji emoji4">🔥</div>
-    <h2 class="moodboard-heading">Mood Board / Inspo ✨</h2>
-    <p class="main-caption">This is the vibe we’re building for you!</p>
-
-    <div class="moodboard-horizontal">
-      <div class="mood-item">
-        <img src="/assets/pastel-outfit.jpg" alt="Pastel Fit">
-        <div class="caption">Soft Girl Aesthetic 💗</div>
+      <div class="slide" id="grungebaddie">
+        <div class="hero-card">
+          <h1>Streetwear Siren</h1>
+          <p class="vibe">Bold, daring, and unapologetic style</p>
+          <button
+            class="girly-btn"
+            onclick="window.location.href='girl-shop.html'"
+          >
+            Shop Grunge Baddie
+          </button>
+        </div>
       </div>
-      <div class="mood-item">
-        <img src="/assets/dreamy.png" alt="Dreamy Vibe">
-        <div class="caption">Dreamy Layers ☁️</div>
+      <div class="slide" id="bossbabe">
+        <div class="hero-card">
+          <h1>Boss Babe Confidence</h1>
+          <p class="vibe">Chic looks for the modern trailblazer</p>
+          <button
+            class="girly-btn"
+            onclick="window.location.href='girl-shop.html'"
+          >
+            Shop Boss Babe
+          </button>
+        </div>
       </div>
-      <div class="mood-item">
-        <img src="/assets/y2k.jpg" alt="Y2K Fit">
-        <div class="caption">Y2K Realness ✨</div>
-      </div>
-      <div class="mood-item">
-        <img src="/assets/old-money.jpg" alt="Fabric Detail">
-        <div class="caption">Old Money 🧵</div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <section class="style-quiz-section">
+      <h2>Discover Your Style</h2>
+      <p>Answer two quick questions to find your perfect aesthetic.</p>
+      <form class="quiz-form" onsubmit="showQuizResult(event)">
+        <div class="question">
+          <label>What's your go-to accessory?</label>
+          <input
+            type="radio"
+            name="accessory"
+            value="soft"
+            id="pearl"
+            required
+          />
+          <label for="pearl">Pearl Necklace</label>
+          <input type="radio" name="accessory" value="grunge" id="choker" />
+          <label for="Close-Fit Pendantr">Close-Fit Pendant</label>
+          <input type="radio" name="accessory" value="boss" id="watch" />
+          <label for="watch">Statement Watch</label>
+        </div>
+        <div class="question">
+          <label>Favorite color palette?</label>
+          <input type="radio" name="color" value="soft" id="pastels" required />
+          <label for="pastels">Pastels</label>
+          <input type="radio" name="color" value="grunge" id="darks" />
+          <label for="darks">Darks</label>
+          <input type="radio" name="color" value="boss" id="neutrals" />
+          <label for="neutrals">Neutrals</label>
+        </div>
+        <button type="submit" class="girly-btn">Find My Style</button>
+      </form>
+      <div class="quiz-result" id="quizResult"></div>
+    </section>
 
-
-  <section class="featured-girls">
-    <h2>✨ Featured Picks</h2>
-    <div class="girly-grid">
-      <div class="girly-card">
-        <img src="/assets/teen-pink.jpg" alt="Pink Aesthetic Tee" />
-        <h4>Pink Aesthetic Tee</h4>
-        <p>Soft. Cute. Bold.</p>
+    <section class="countdown-section">
+      <div class="countdown-container">
+        <div class="tshirt-image">
+          <img src="/assets/question-mark.jpg" alt="Stylish T-Shirt" />
+        </div>
+        <div class="countdown-content">
+          <h1 class="countdown-heading">New Collection Countdown</h1>
+          <div class="countdown-wrapper">
+            <div class="time-box" id="days">
+              <label>Days</label>
+              <div class="flip-card">
+                <div class="card-face card-front">00</div>
+                <div class="card-face card-back">00</div>
+              </div>
+            </div>
+            <div class="time-box" id="hours">
+              <label>Hours</label>
+              <div class="flip-card">
+                <div class="card-face card-front">00</div>
+                <div class="card-face card-back">00</div>
+              </div>
+            </div>
+            <div class="time-box" id="minutes">
+              <label>Minutes</label>
+              <div class="flip-card">
+                <div class="card-face card-front">00</div>
+                <div class="card-face card-back">00</div>
+              </div>
+            </div>
+            <div class="time-box" id="seconds">
+              <label>Seconds</label>
+              <div class="flip-card">
+                <div class="card-face card-front">00</div>
+                <div class="card-face card-back">00</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="girly-card">
-        <img src="/assets/jacket-girl.jpg" alt="Oversized Girly Jacket" />
-        <h4>Oversized Girly Jacket</h4>
-        <p>Slay the streets in cozy glam.</p>
-      </div>
-      <div class="girly-card">
-        <img src="/assets/ord.jpg" alt="Co-Ord Power Set" />
-        <h4>Co-Ord Power Set</h4>
-        <p>Confidence in every thread.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    © 2025 PRASO Girl-Verse. All rights reserved 💘
-  </footer>
+    <section class="moodboard-section">
+      <h2 class="moodboard-heading">Style Inspiration</h2>
+      <p class="main-caption">
+        Explore curated looks to spark your next outfit
+      </p>
+      <div class="moodboard-grid">
+        <div class="mood-item">
+          <img src="/assets/pastel-outfit.jpg" alt="Pastel Fit" />
+          <div class="caption">Soft Girl Aesthetic</div>
+        </div>
+        <div class="mood-item">
+          <img src="/assets/dreamy.png" alt="Dreamy Vibe" />
+          <div class="caption">Dreamy Layers</div>
+        </div>
+        <div class="mood-item">
+          <img src="/assets/y2k.jpg" alt="Y2K Fit" />
+          <div class="caption">Y2K Realness</div>
+        </div>
+        <div class="mood-item">
+          <img src="/assets/old-money.jpg" alt="Old Money" />
+          <div class="caption">Old Money Elegance</div>
+        </div>
+      </div>
+    </section>
 
-  <script>
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-  
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
+    <section class="featured-girls">
+      <h2>Featured Picks</h2>
+      <div class="girly-grid">
+        <div class="girly-card">
+          <img src="/assets/teen-pink.jpg" alt="Pink Aesthetic Tee" />
+          <h4>Pink Aesthetic Tee</h4>
+          <div class="price">₹1,199</div>
+          <button
+            class="girly-btn"
+            onclick="window.location.href='girl-shop.html'"
+          >
+            Shop Now
+          </button>
+        </div>
+        <div class="girly-card">
+          <img src="/assets/jacket-girl.jpg" alt="Oversized Girly Jacket" />
+          <h4>Oversized Girly Jacket</h4>
+          <div class="price">₹1,999</div>
+          <button
+            class="girly-btn"
+            onclick="window.location.href='girl-shop.html'"
+          >
+            Shop Now
+          </button>
+        </div>
+        <div class="girly-card">
+          <img src="/assets/ord.jpg" alt="Co-Ord Power Set" />
+          <h4>Co-Ord Power Set</h4>
+          <div class="price">₹2,499</div>
+          <button
+            class="girly-btn"
+            onclick="window.location.href='girl-shop.html'"
+          >
+            Shop Now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <h2>Our Community</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p>
+            The Soft Girl Tee is so comfortable and perfectly chic. I wear it
+            everywhere!
+          </p>
+          <div class="reviewer">
+            <div
+              class="avatar"
+              style="background-image: url('/assets/sanya-avatar.jpg')"
+            ></div>
+            <div class="name">Sanya K.</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            The Grunge Baddie jacket adds such a cool edge to my outfits. Love
+            it!
+          </p>
+          <div class="reviewer">
+            <div class="avatar"></div>
+            <div class="name">Rhea M.</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p>
+            The Boss Babe set makes me feel confident and stylish every time I
+            wear it.
+          </p>
+          <div class="reviewer">
+            <div class="avatar"></div>
+            <div class="name">Anika P.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <h2>Join Our Style Community</h2>
+      <p>Subscribe for exclusive updates and style inspiration</p>
+      <button
+        class="girly-btn"
+        onclick="document.querySelector('footer form input').focus()"
+      >
+        Subscribe Now
+      </button>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div>
+          <h3>PRASO</h3>
+          <p>Elevate your style with Praso Clothing.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/home/index.html">Home</a></li>
+            <li><a href="girl-shop.html">Shop</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>Email: support@prasoclothing.com</p>
+          <p>Phone: +1 (555) 123-4567</p>
+        </div>
+        <div>
+          <h3>Stay Updated</h3>
+          <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      <p class="footer-bottom">© 2025 PRASO Girl-Verse. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Hero Slider
+      let currentIndex = 0;
+      const slides = document.querySelectorAll(".slide");
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove("active");
+          if (i === index) slide.classList.add("active");
+        });
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        showSlide(currentIndex);
+      }
+
+      setInterval(nextSlide, 5000);
+
+      // Countdown Timer
+      const launchDate = new Date("2025-05-22T00:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const timeLeft = launchDate - now;
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        const formatted = {
+          days: String(days).padStart(2, "0"),
+          hours: String(hours).padStart(2, "0"),
+          minutes: String(minutes).padStart(2, "0"),
+          seconds: String(seconds).padStart(2, "0"),
+        };
+        if (timeLeft >= 0) {
+          flipDigit("days", formatted.days);
+          flipDigit("hours", formatted.hours);
+          flipDigit("minutes", formatted.minutes);
+          flipDigit("seconds", formatted.seconds);
+        } else {
+          clearInterval(countdownInterval);
+          document
+            .querySelectorAll(".card-front")
+            .forEach((card) => (card.textContent = "00"));
+          const countdownContent = document.querySelector(".countdown-content");
+          countdownContent.innerHTML = `
+            <h1 class="countdown-heading">New Collection Available</h1>
+            <p>Explore our latest styles now.</p>
+            <button class="girly-btn" onclick="window.location.href='girl-shop.html'">Shop Now</button>
+          `;
+        }
+      }
+
+      function flipDigit(id, newVal) {
+        const box = document.getElementById(id);
+        const front = box.querySelector(".card-front");
+        const back = box.querySelector(".card-back");
+        const flipCard = box.querySelector(".flip-card");
+        if (front.textContent !== newVal) {
+          back.textContent = newVal;
+          flipCard.classList.add("flip");
+          setTimeout(() => {
+            front.textContent = newVal;
+            flipCard.classList.remove("flip");
+          }, 700);
+        }
+      }
+
+      const countdownInterval = setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // Style Quiz
+      function showQuizResult(event) {
+        event.preventDefault();
+        const form = event.target;
+        const accessory = form.querySelector(
+          'input[name="accessory"]:checked'
+        ).value;
+        const color = form.querySelector('input[name="color"]:checked').value;
+        const resultDiv = document.getElementById("quizResult");
+        let vibe = "Soft Girl";
+        if (accessory === "grunge" || color === "grunge")
+          vibe = "Grunge Baddie";
+        if (accessory === "boss" || color === "boss") vibe = "Boss Babe";
+        resultDiv.innerHTML = `Your style is <strong>${vibe}</strong>. Explore our ${vibe} collection!`;
+        resultDiv.classList.add("show");
+        form.reset();
+      }
+
+      // Scroll hide/show navbar
+      const navbar = document.querySelector(".navbar");
+      let lastScrollTop = 0;
+      window.addEventListener("scroll", () => {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        navbar.style.top = scrollTop > lastScrollTop ? "-100px" : "0";
+        lastScrollTop = scrollTop;
       });
-    }
-  
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    }
-  
-    setInterval(nextSlide, 5000);
-  </script>
-  
-  <script>
-    // Set launch date (May 1, 2025, 00:00:00)
-    const launchDate = new Date("2025-05-01T00:00:00").getTime();
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const timeLeft = launchDate - now;
+      // Hamburger toggle
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
 
-      // Calculate time components
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-      // Format with leading zeros
-      const formatted = {
-        days: String(days).padStart(2, '0'),
-        hours: String(hours).padStart(2, '0'),
-        minutes: String(minutes).padStart(2, '0'),
-        seconds: String(seconds).padStart(2, '0')
-      };
-
-      // Update each time box
-      if (timeLeft >= 0) {
-        flipDigit('days', formatted.days);
-        flipDigit('hours', formatted.hours);
-        flipDigit('minutes', formatted.minutes);
-        flipDigit('seconds', formatted.seconds);
-      } else {
-        // Stop the countdown when time is up
-        clearInterval(countdownInterval);
-        document.querySelectorAll('.card-front').forEach(card => card.textContent = '00');
+      // Newsletter subscription placeholder
+      function subscribeNewsletter(event) {
+        event.preventDefault();
+        alert("Thank you for subscribing!");
       }
-    }
+    </script>
 
-    function flipDigit(id, newVal) {
-      const box = document.getElementById(id);
-      const front = box.querySelector('.card-front');
-      const back = box.querySelector('.card-back');
-      const flipCard = box.querySelector('.flip-card');
-
-      if (front.textContent !== newVal) {
-        back.textContent = newVal;
-        flipCard.classList.add('flip');
-        
-        setTimeout(() => {
-          front.textContent = newVal;
-          flipCard.classList.remove('flip');
-        }, 700);
-      }
-    }
-
-    // Run countdown every second
-    const countdownInterval = setInterval(updateCountdown, 1000);
-
-    // Initial update to avoid 1-second delay
-    updateCountdown();
-  </script>
-
-  <script>
-  // Scroll hide/show navbar
-    const navbar = document.querySelector('.navbar');
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      navbar.style.top = scrollTop > lastScrollTop ? '-100px' : '0';
-      lastScrollTop = scrollTop;
-    });
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
-  </script>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
       import {
@@ -298,7 +412,7 @@
         signOut,
         onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  
+
       const firebaseConfig = {
         apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
         authDomain: "prasoclothing-ac3a3.firebaseapp.com",
@@ -308,12 +422,11 @@
         appId: "1:362254349990:web:b3f89bd304f3468e92e667",
         measurementId: "G-ETY5MMFPPM",
       };
-  
+
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-  
       const userArea = document.getElementById("user-area");
-  
+
       onAuthStateChanged(auth, (user) => {
         if (user) {
           userArea.innerHTML = `
@@ -327,16 +440,14 @@
               </div>
             </div>
           `;
-          // Add event listener for dropdown toggle
-          const userIcon = userArea.querySelector('.user-icon');
-          const dropdownContent = userArea.querySelector('.dropdown-content');
-          userIcon.addEventListener('click', () => {
-            dropdownContent.classList.toggle('show');
+          const userIcon = userArea.querySelector(".user-icon");
+          const dropdownContent = userArea.querySelector(".dropdown-content");
+          userIcon.addEventListener("click", () => {
+            dropdownContent.classList.toggle("show");
           });
-          // Close dropdown when clicking outside
-          document.addEventListener('click', (event) => {
+          document.addEventListener("click", (event) => {
             if (!userArea.contains(event.target)) {
-              dropdownContent.classList.remove('show');
+              dropdownContent.classList.remove("show");
             }
           });
         } else {
@@ -345,7 +456,7 @@
           `;
         }
       });
-  
+
       window.logout = function () {
         signOut(auth)
           .then(() => {
@@ -356,6 +467,6 @@
             alert("Logout failed: " + error.message);
           });
       };
-  </script>
-</body>
+    </script>
+  </body>
 </html>

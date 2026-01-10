@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - Praso Clothing</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Quicksand", sans-serif;
+        background: #f9f9fb;
+        color: #2c2c2c;
+        line-height: 1.6;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .payment-section {
+        max-width: 1100px;
+        margin: 60px auto;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 32px;
+        animation: fadeIn 0.8s ease;
+      }
+
+      .order-summary,
+      .delivery-details {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .order-summary h2,
+      .delivery-details h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2c2c2c;
+        margin-bottom: 20px;
+        border-left: 4px solid #ff5e62;
+        padding-left: 12px;
+      }
+
+      .user-email {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .order-items {
+        margin-bottom: 20px;
+      }
+
+      .order-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid #e8ecef;
+        transition: background 0.3s ease;
+      }
+
+      .order-item:hover {
+        background: #f8fafc;
+      }
+
+      .order-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 16px;
+      }
+
+      .order-item-details h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2c2c2c;
+      }
+
+      .order-item-details p {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .order-total {
+        padding: 20px 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .order-total p {
+        margin-bottom: 12px;
+      }
+
+      .order-total .total {
+        font-size: 18px;
+        color: #ff5e62;
+        font-weight: 700;
+      }
+
+      .return-policy {
+        font-size: 14px;
+        color: #666;
+        margin-top: 20px;
+        padding: 16px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border-left: 4px solid #f7b731;
+      }
+
+      .delivery-details form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .delivery-details input,
+      .delivery-details select {
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: #f9f9f9;
+        width: 100%;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .delivery-details input:focus,
+      .delivery-details select:focus {
+        outline: none;
+        border-color: #ff5e62;
+        box-shadow: 0 0 8px rgba(255, 94, 98, 0.2);
+      }
+
+      .delivery-details .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #2c2c2c;
+      }
+
+      .payment-methods {
+        margin-top: 20px;
+      }
+
+      .payment-methods h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .payment-option {
+        padding: 16px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #2c2c2c;
+        background: #f8fafc;
+        transition: background 0.3s ease;
+      }
+
+      .payment-option:hover {
+        background: #e8ecef;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #ff5e62, #f7b731);
+        color: #fff;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .submit-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .error-message {
+        color: #ff4d4f;
+        font-size: 14px;
+        margin-top: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .payment-section {
+          margin: 30px 16px;
+          flex-direction: column;
+          padding: 16px;
+        }
+
+        .order-summary h2,
+        .delivery-details h2 {
+          font-size: 20px;
+        }
+
+        .order-item img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .submit-btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="payment-section">
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        <div class="user-email" id="userEmail">Email: Loading...</div>
+        <div class="order-items" id="orderItems"></div>
+        <div class="order-total" id="orderTotal"></div>
+        <div class="return-policy">
+          <strong>Return Policy:</strong> Returns accepted within 7 days if
+          unused and in original packaging. Contact support@prasoclothing.com
+          for assistance.
+        </div>
+      </div>
+      <div class="delivery-details">
+        <h2>Delivery Details</h2>
+        <form id="deliveryForm">
+          <input
+            type="text"
+            id="firstName"
+            placeholder="First name (optional)"
+          />
+          <input type="text" id="lastName" placeholder="Last name" required />
+          <input type="text" id="address" placeholder="Address" required />
+          <input
+            type="text"
+            id="apartment"
+            placeholder="Apartment, suite, etc. (optional)"
+          />
+          <input type="text" id="city" placeholder="City" required />
+          <select id="state" required>
+            <option value="Maharashtra">Maharashtra</option>
+            <!-- Add more states as needed -->
+          </select>
+          <input
+            type="text"
+            id="pincode"
+            placeholder="PIN code"
+            required
+            pattern="[0-9]{6}"
+            title="PIN code must be 6 digits"
+          />
+          <input
+            type="tel"
+            id="phone"
+            placeholder="Phone"
+            required
+            pattern="[0-9]{10}"
+            title="Phone number must be 10 digits"
+          />
+          <div class="checkbox">
+            <input type="checkbox" id="saveInfo" />
+            <label for="saveInfo">Save this information for next time</label>
+          </div>
+          <div class="payment-methods">
+            <h3>Payment Method</h3>
+            <div class="payment-option">Cash on Delivery (COD)</div>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            Place COD Order
+          </button>
+          <div class="error-message" id="errorMessage"></div>
+        </form>
+      </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4bDv-5EdzaVbMWd0TVmHLI4y7KIdR-6Q",
+        authDomain: "prasoclothing-ac3a3.firebaseapp.com",
+        projectId: "prasoclothing-ac3a3",
+        storageBucket: "prasoclothing-ac3a3.appspot.com",
+        messagingSenderId: "362254349990",
+        appId: "1:362254349990:web:b3f89bd304f3468e92e667",
+        measurementId: "G-ETY5MMFPPM",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Get cart and coupon data
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cart") || "[]");
+      }
+
+      function getAppliedCoupon() {
+        return localStorage.getItem("appliedCoupon") || "";
+      }
+
+      const coupons = {
+        SAVE10: 0.1, // 10% off
+        SAVE20: 0.2, // 20% off
+        FLAT50: 50, // Flat ₹50 off
+      };
+
+      // Calculate total amount
+      function calculateTotal(cart, appliedCoupon) {
+        const usdToInr = 80;
+        let total =
+          cart.reduce((sum, item) => sum + item.price * item.quantity, 0) *
+          usdToInr;
+        let discount = 0;
+        let finalTotal = total;
+
+        if (appliedCoupon && coupons[appliedCoupon]) {
+          if (appliedCoupon === "FLAT50") {
+            discount = coupons[appliedCoupon] * usdToInr;
+            finalTotal = Math.max(0, finalTotal - discount);
+          } else {
+            discount = total * coupons[appliedCoupon];
+            finalTotal = total - discount;
+          }
+        }
+
+        return { total, discount, finalTotal };
+      }
+
+      // Render order summary
+      function renderOrderSummary(userEmail) {
+        const cart = getCart();
+        const appliedCoupon = getAppliedCoupon();
+        const usdToInr = 80;
+        const orderItems = document.getElementById("orderItems");
+        const orderTotal = document.getElementById("orderTotal");
+        const userEmailDiv = document.getElementById("userEmail");
+
+        userEmailDiv.textContent = `Email: ${userEmail || "Not logged in"}`;
+
+        if (cart.length === 0) {
+          orderItems.innerHTML = "<p>Your cart is empty.</p>";
+          orderTotal.innerHTML = "";
+          document.getElementById("deliveryForm").style.display = "none";
+          return;
+        }
+
+        orderItems.innerHTML = cart
+          .map((item) => {
+            const itemTotal = item.price * item.quantity;
+            return `
+          <div class="order-item">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="order-item-details">
+              <h3>${item.name}</h3>
+              <p>Size: ${item.size} | Quantity: ${
+              item.quantity
+            } | ₹${Math.round(itemTotal * usdToInr).toLocaleString("en-IN")}</p>
+            </div>
+          </div>
+        `;
+          })
+          .join("");
+
+        const { total, discount, finalTotal } = calculateTotal(
+          cart,
+          appliedCoupon
+        );
+
+        orderTotal.innerHTML = `
+        <p>Subtotal: ₹${Math.round(total).toLocaleString("en-IN")}</p>
+        ${
+          appliedCoupon && coupons[appliedCoupon]
+            ? `<p>Discount: -₹${Math.round(discount).toLocaleString(
+                "en-IN"
+              )} (${appliedCoupon})</p>`
+            : ""
+        }
+        <p class="total">Total: ₹${Math.round(finalTotal).toLocaleString(
+          "en-IN"
+        )}</p>
+      `;
+      }
+
+      // Store order locally
+      function storeOrder(order) {
+        const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+        orders.push(order);
+        localStorage.setItem("orders", JSON.stringify(orders));
+      }
+
+      // Handle form submission
+      document
+        .getElementById("deliveryForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const errorMessage = document.getElementById("errorMessage");
+          const submitBtn = document.getElementById("submitBtn");
+          errorMessage.textContent = "";
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Processing...";
+
+          // Validate form inputs
+          const pincode = document.getElementById("pincode").value;
+          const phone = document.getElementById("phone").value;
+          if (!/^[0-9]{6}$/.test(pincode)) {
+            errorMessage.textContent = "PIN code must be 6 digits.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place COD Order";
+            return;
+          }
+          if (!/^[0-9]{10}$/.test(phone)) {
+            errorMessage.textContent = "Phone number must be 10 digits.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place COD Order";
+            return;
+          }
+
+          const deliveryDetails = {
+            firstName: document.getElementById("firstName").value || "",
+            lastName: document.getElementById("lastName").value,
+            address: document.getElementById("address").value,
+            apartment: document.getElementById("apartment").value || "",
+            city: document.getElementById("city").value,
+            state: document.getElementById("state").value,
+            pincode: pincode,
+            phone: phone,
+            saveInfo: document.getElementById("saveInfo").checked
+              ? "Yes"
+              : "No",
+          };
+
+          const cart = getCart();
+          const appliedCoupon = getAppliedCoupon();
+          const user = auth.currentUser;
+
+          if (!user) {
+            errorMessage.textContent = "Please log in to proceed.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place COD Order";
+            return;
+          }
+
+          if (cart.length === 0) {
+            errorMessage.textContent = "Your cart is empty.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place COD Order";
+            return;
+          }
+
+          const { total, discount, finalTotal } = calculateTotal(
+            cart,
+            appliedCoupon
+          );
+          const usdToInr = 80;
+          const orderId = `COD_${Date.now()}`;
+          const cartItems = cart
+            .map(
+              (item) =>
+                `${item.name} (Size: ${item.size}, Quantity: ${
+                  item.quantity
+                }) - ₹${Math.round(
+                  item.price * item.quantity * usdToInr
+                ).toLocaleString("en-IN")}`
+            )
+            .join("\n");
+
+          // Construct email body
+          const emailBody = `
+Order Confirmation: ${orderId}
+
+Dear Praso Clothing Team,
+
+I have placed a COD order with the following details:
+
+Order ID: ${orderId}
+Customer Email: ${user.email}
+
+Items:
+${cartItems}
+
+Subtotal: ₹${Math.round(total).toLocaleString("en-IN")}
+Discount: ${
+            appliedCoupon
+              ? `-₹${Math.round(discount).toLocaleString(
+                  "en-IN"
+                )} (${appliedCoupon})`
+              : "None"
+          }
+Total: ₹${Math.round(finalTotal).toLocaleString("en-IN")}
+
+Delivery Details:
+Name: ${deliveryDetails.firstName} ${deliveryDetails.lastName}
+Address: ${deliveryDetails.address}${
+            deliveryDetails.apartment ? ", " + deliveryDetails.apartment : ""
+          }
+City: ${deliveryDetails.city}, ${deliveryDetails.state} ${
+            deliveryDetails.pincode
+          }
+Phone: ${deliveryDetails.phone}
+Save Info: ${deliveryDetails.saveInfo}
+
+Please confirm receipt and provide next steps for my order.
+
+Thank you,
+${deliveryDetails.firstName} ${deliveryDetails.lastName}
+`.trim();
+
+          // Store order locally
+          const order = {
+            orderId,
+            userEmail: user.email,
+            cartItems,
+            subtotal: Math.round(total),
+            discount: appliedCoupon ? Math.round(discount) : 0,
+            total: Math.round(finalTotal),
+            deliveryDetails,
+            timestamp: new Date().toISOString(),
+          };
+          storeOrder(order);
+
+          // Confirm with user before opening email client
+          if (
+            !confirm(
+              'This will open your email app to send the order to support@prasoclothing.com. Please click "Send" to confirm your order. Proceed?'
+            )
+          ) {
+            errorMessage.textContent =
+              "Order cancelled. Please submit again to proceed.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place COD Order";
+            return;
+          }
+
+          try {
+            // Create mailto link
+            const mailtoLink = `mailto:support@prasoclothing.com?subject=Order%20Confirmation%20${encodeURIComponent(
+              orderId
+            )}&body=${encodeURIComponent(emailBody)}`;
+            const linkElement = document.createElement("a");
+            linkElement.href = mailtoLink;
+            linkElement.style.display = "none";
+            document.body.appendChild(linkElement);
+            linkElement.click();
+            document.body.removeChild(linkElement);
+
+            // Give user time to send email
+            setTimeout(() => {
+              alert(
+                "Order submitted! Please ensure you sent the email to support@prasoclothing.com. You will be redirected to the confirmation page."
+              );
+              localStorage.removeItem("cart");
+              localStorage.removeItem("appliedCoupon");
+              window.location.href = "order-confirmation.html";
+            }, 1000);
+          } catch (err) {
+            errorMessage.textContent =
+              "Failed to open email app. Please contact support@prasoclothing.com with your order details.";
+            console.error("Mailto Error:", err);
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Place COD Order";
+          }
+        });
+
+      // Initialize page
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          renderOrderSummary(user.email);
+        } else {
+          document.getElementById("orderItems").innerHTML =
+            "<p>Please log in to proceed.</p>";
+          document.getElementById("deliveryForm").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
